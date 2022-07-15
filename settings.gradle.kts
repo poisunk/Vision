@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build_logic")
     repositories {
         gradlePluginPortal()
         google()
@@ -13,4 +14,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Vision"
-include ':app'
+include(":app")
+include(":lib_common")
