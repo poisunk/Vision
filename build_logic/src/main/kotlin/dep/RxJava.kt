@@ -9,8 +9,8 @@ import org.gradle.kotlin.dsl.dependencies
  *邮箱：1714480752@qq.com
  */
 object RxJava {
-    const val rxandroid = "io.reactivex.rxjava2:rxandroid:3.1.5"
-    const val rxjava = "io.reactivex.rxjava2:rxjava:3.1.5"
+    const val rxandroid = "io.reactivex.rxjava2:rxandroid:2.1.0"
+    const val rxjava = "io.reactivex.rxjava2:rxjava:2.1.0"
 }
 
 fun Project.dependenciesRxJava() = dependencies {

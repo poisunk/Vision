@@ -52,6 +52,11 @@ fun Project.configAndroidApp() = this.extensions.configure(
             sourceCompatibility = JavaVersion.VERSION_1_8
             targetCompatibility = JavaVersion.VERSION_1_8
         }
+
+        buildFeatures {
+            dataBinding = true
+        }
+
         (this as org.gradle.api.plugins.ExtensionAware).extensions.configure(
             "kotlinOptions",
             Action<KotlinJvmOptions> {
