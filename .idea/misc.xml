@@ -7,16 +7,21 @@
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/bottom_ic_home.xml" value="0.1205" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/bottom_ic_mine.xml" value="0.1205" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/bottom_ic_notification.xml" value="0.1205" />
+        <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/ic_community_select.xml" value="0.1765" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/ic_community_unselect.xml" value="0.1205" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/ic_home_select.xml" value="0.1205" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/ic_home_unselect.xml" value="0.1205" />
+        <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1765" />
+        <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/ic_mine_select.xml" value="0.1765" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/ic_mine_unselect.xml" value="0.1205" />
+        <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/ic_notification_select.xml" value="0.1765" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/ic_notification_unselect.xml" value="0.1205" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/selector_bottom_ic_community.xml" value="0.1195" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/selector_bottom_ic_home.xml" value="0.1195" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/selector_bottom_ic_mine.xml" value="0.1195" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/drawable/selector_bottom_ic_notification.xml" value="0.1195" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/layout/layout_bottom_nav.xml" value="0.4" />
         <entry key="..\:/AndroidLearnTest/Vision/app/src/main/res/menu/bottom_nav.xml" value="0.2484375" />
       </map>
     </option>
