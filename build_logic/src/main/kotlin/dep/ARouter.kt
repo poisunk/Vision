@@ -1,7 +1,7 @@
 package dep
 
-import base.implementation
-import base.kapt
+import ext.implementation
+import ext.kapt
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 

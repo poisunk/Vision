@@ -1,7 +1,7 @@
 package plugins
 
-import base.BasePlugin
-import base.pluginKotlinAndroid
+import BasePlugin
+import pluginKotlinAndroid
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.Action
 import org.gradle.api.JavaVersion

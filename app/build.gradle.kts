@@ -1,3 +1,5 @@
+import dep.dependenciesRxJava
+
 plugins {
     id("com.plugins.app")
 }

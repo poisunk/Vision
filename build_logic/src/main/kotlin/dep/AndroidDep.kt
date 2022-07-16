@@ -1,8 +1,8 @@
 package dep
 
-import base.androidTestImplementation
-import base.implementation
-import base.testImplementation
+import ext.androidTestImplementation
+import ext.implementation
+import ext.testImplementation
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 

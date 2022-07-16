@@ -1,4 +1,4 @@
-package base
+package ext
 
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 

@@ -1,5 +1,3 @@
-package base
-
 import dep.dependenciesARouter
 import dep.dependenciesAndroid
 import org.gradle.api.Action
