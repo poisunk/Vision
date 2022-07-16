@@ -7,4 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
  *邮箱：1714480752@qq.com
  */
 abstract class BaseActivity : AppCompatActivity(){
+
+
 }
