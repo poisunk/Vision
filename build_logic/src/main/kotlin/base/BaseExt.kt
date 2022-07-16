@@ -15,3 +15,6 @@ fun DependencyHandlerScope.testImplementation(dependency: Any) =
 
 fun DependencyHandlerScope.androidTestImplementation(dependency: Any) =
     add("androidTestImplementation", dependency)
+
+fun DependencyHandlerScope.kapt(dependency: Any) =
+    add("kapt", dependency)

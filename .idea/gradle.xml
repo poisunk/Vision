@@ -25,6 +25,10 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/build_logic" />
             <option value="$PROJECT_DIR$/lib_common" />
+            <option value="$PROJECT_DIR$/module_community" />
+            <option value="$PROJECT_DIR$/module_home" />
+            <option value="$PROJECT_DIR$/module_mine" />
+            <option value="$PROJECT_DIR$/module_notification" />
           </set>
         </option>
       </GradleProjectSettings>

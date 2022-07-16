@@ -18,7 +18,6 @@ class ModulePlugin : BasePlugin() {
     override fun initConfig(project: Project) {
         project.pluginApplication()
         project.pluginKotlinAndroid()
-
         project.configAndroidModule()
         super.initConfig(project)
     }
@@ -55,9 +54,12 @@ fun Project.configAndroidModule() = this.extensions.configure(
             sourceCompatibility = JavaVersion.VERSION_1_8
             targetCompatibility = JavaVersion.VERSION_1_8
         }
-        Action<KotlinJvmOptions> {
-            jvmTarget = "1.8"
-        }
+        (this as org.gradle.api.plugins.ExtensionAware).extensions.configure(
+            "kotlinOptions",
+            Action<KotlinJvmOptions> {
+                jvmTarget = "1.8"
+            }
+        )
     }
 
 )

@@ -25,7 +25,7 @@ gradlePlugin {
             // 在 app 模块需要通过 id 引用这个插件
             id = "com.base.plugin"
             // 实现这个插件的类的路径
-            implementationClass = "plugins.BasePlugin"
+            implementationClass = "base.BasePlugin"
         }
 
         create("app-plugin") {
