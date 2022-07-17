@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.icu.number.Scale
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.CheckedTextView
 import android.widget.Toast
@@ -91,7 +92,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         v.isChecked = true
 
         // 开启动画
-        val animation = ScaleAnimation(1f, 1.1f, 1f, 1.1f)
+        val animation = ScaleAnimation(1f, 1.1f, 1f, 1.1f,
+            Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
         animation.duration = 300L
         animation.fillAfter = true
         v.startAnimation(animation)
@@ -100,7 +102,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         for((j, view) in navList.withIndex()){
             if(j != i && view.isChecked){
                 view.isChecked = false
-                val animation = ScaleAnimation(1.1f, 1f, 1.1f, 1f)
+                val animation = ScaleAnimation(1.1f, 1f, 1.1f, 1f,
+                    Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
                 animation.duration = 300L
                 animation.fillAfter = true
                 view.startAnimation(animation)
