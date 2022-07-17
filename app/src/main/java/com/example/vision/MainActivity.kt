@@ -1,8 +1,10 @@
 package com.example.vision
 
 import android.animation.ValueAnimator
+import android.icu.number.Scale
 import android.os.Bundle
 import android.view.View
+import android.view.animation.ScaleAnimation
 import android.widget.CheckedTextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -80,8 +82,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         // 初始化导航栏
-        navList[HOME].scaleX = 1.2f
-        navList[HOME].scaleY = 1.2f
+        startBottomAnim(HOME)
         replaceFragment(HOME)
     }
 
@@ -90,21 +91,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         v.isChecked = true
 
         // 开启动画
-        ValueAnimator.ofFloat(1f,1.2f).apply {
-            duration = 300L
-            addUpdateListener {
-                v.scaleX = it.animatedValue as Float
-                v.scaleY = it.animatedValue as Float
-            }
-        }.start()
+        val animation = ScaleAnimation(1f, 1.1f, 1f, 1.1f)
+        animation.duration = 300L
+        animation.fillAfter = true
+        v.startAnimation(animation)
 
         // 清除其他navigation的动画效果
         for((j, view) in navList.withIndex()){
-            if(j != i){
+            if(j != i && view.isChecked){
                 view.isChecked = false
-
-                view.scaleY = 1f
-                view.scaleX = 1f
+                val animation = ScaleAnimation(1.1f, 1f, 1.1f, 1f)
+                animation.duration = 300L
+                animation.fillAfter = true
+                view.startAnimation(animation)
             }
         }
     }
