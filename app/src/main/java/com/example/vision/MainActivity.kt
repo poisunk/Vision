@@ -4,11 +4,13 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckedTextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.vision.databinding.ActivityMainBinding
 import com.lib.common.base.BaseActivity
 import com.lib.common.config.ARouterTable
+import com.lib.common.ext.setOnItemChangeListener
 
 
 /**
@@ -48,6 +50,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
      * 初始化底部导航栏
      */
     private fun initBottomNav() {
+
+//        mBinding?.apply {
+//            val first = mainNav.selectedItemId
+//            mainNav.setOnItemChangeListener {
+//                Toast.makeText(this@MainActivity, (it - first).toString(), Toast.LENGTH_SHORT).show()
+//                true
+//            }
+//        }
+
         // 将所有底部导航键放到list里方便维护
         mBinding?.apply {
             navList.addAll(arrayOf(
@@ -102,8 +113,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, fragments[i]).commit()
     }
-
-
-
 
 }

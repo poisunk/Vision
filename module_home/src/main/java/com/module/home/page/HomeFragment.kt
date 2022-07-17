@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.lib.common.base.BaseFragment
 import com.lib.common.config.ARouterTable
+import com.module.home.R
 
 /**
  *创建者： poisunk
@@ -20,7 +21,6 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 }
