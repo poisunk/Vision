@@ -31,7 +31,7 @@ class BannerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val index = if(position == 0){
+        val index = if (position == 0){
             data.size - 1
         }else if(position == itemCount - 1) {
             0
