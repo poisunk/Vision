@@ -37,9 +37,9 @@ class BannerView @JvmOverloads constructor(
 
     private var mInterval = 0
 
-    private var mCurrentPosition = 1
+    private var mCurrentPosition = 0
 
-    private var mBannerSize = 1
+    private var mBannerSize = 0
 
 
     init {
@@ -129,6 +129,7 @@ class BannerView @JvmOverloads constructor(
 
     private fun scrollToPosition(position: Int) {
         mCurrentPosition = position
+        Log.d("Banner", position.toString())
         mRecyclerView.smoothScrollToPosition(position)
     }
 

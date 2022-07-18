@@ -1,3 +1,4 @@
+import dep.dependenciesGlide
 import dep.dependenciesRetrofit
 import dep.dependenciesRxJava
 
@@ -7,3 +8,4 @@ plugins {
 
 dependenciesRetrofit()
 dependenciesRxJava()
+dependenciesGlide()

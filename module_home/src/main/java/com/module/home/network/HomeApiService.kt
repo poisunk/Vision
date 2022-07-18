@@ -1,5 +1,6 @@
 package com.module.home.network
 
+import com.module.home.bean.HomeData
 import io.reactivex.Observable
 import retrofit2.http.GET
 import java.util.*
@@ -11,6 +12,6 @@ import java.util.*
  */
 interface HomeApiService{
 
-    @GET()
-    fun getDiscover():Observable<Objects>
+    @GET("v7/index/tab/discovery")
+    fun getDiscover(): Observable<HomeData>
 }

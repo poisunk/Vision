@@ -1,4 +1,4 @@
-package com.module.home.page.main
+package com.module.home.ui
 
 import android.os.Bundle
 import android.view.View
@@ -10,14 +10,14 @@ import com.lib.common.adapter.BaseFragmentPagerAdapter
 import com.lib.common.base.BaseFragment
 import com.lib.common.config.ARouterTable
 import com.module.home.R
-import com.module.home.page.discover.DiscoverFragment
+import com.module.home.databinding.FragmentHomeBinding
 
 /**
  *创建者： poisunk
  *邮箱：1714480752@qq.com
  */
 @Route(path = ARouterTable.HOME)
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_home
 
@@ -28,9 +28,8 @@ class HomeFragment : BaseFragment() {
 
     private fun initPage(v: View) {
         Toast.makeText(context, "Home", Toast.LENGTH_SHORT).show()
-
         val mVP = v.findViewById<ViewPager2>(R.id.home_view_pager)
-        val fragments = arrayListOf<Fragment>(DiscoverFragment(), DiscoverFragment())
+        val fragments = arrayListOf<Fragment>(DiscoverFragment())
         mVP.adapter = BaseFragmentPagerAdapter(fragments, childFragmentManager, lifecycle)
     }
 }

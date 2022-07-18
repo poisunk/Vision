@@ -15,7 +15,7 @@ import androidx.databinding.ViewDataBinding
  */
 abstract class BaseActivity<T:ViewDataBinding> : AppCompatActivity(){
 
-    var mBinding:T? = null
+    lateinit var mBinding:T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

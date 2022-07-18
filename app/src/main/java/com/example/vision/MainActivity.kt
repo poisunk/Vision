@@ -49,10 +49,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         fragments.add(COMMUNITY, ARouter.getInstance().build(ARouterTable.COMMUNITY).navigation() as Fragment)
         fragments.add(NOTIFICATION, ARouter.getInstance().build(ARouterTable.NOTIFICATION).navigation() as Fragment)
         fragments.add(MINE, ARouter.getInstance().build(ARouterTable.MINE).navigation() as Fragment)
-        mBinding?.apply {
-            mainContainer.adapter = BaseFragmentPagerAdapter(fragments, supportFragmentManager, lifecycle)
-            mainContainer.isUserInputEnabled = false
-        }
+
+        mBinding.mainContainer.adapter = BaseFragmentPagerAdapter(fragments, supportFragmentManager, lifecycle)
+        mBinding.mainContainer.isUserInputEnabled = false
     }
 
     /**
@@ -69,7 +68,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //        }
 
         // 将所有底部导航键放到list里方便切换
-        mBinding?.apply {
+        mBinding.apply {
             navList.addAll(arrayOf(
                 mainBottomNavHome,
                 mainBottomNavCommunity,
@@ -124,9 +123,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
      * 切换fragment
      */
     private fun replaceFragment(i: Int) {
-        mBinding?.mainContainer?.apply {
-            setCurrentItem(i, false)
-        }
+        mBinding.mainContainer.setCurrentItem(i, false)
     }
 
 }
