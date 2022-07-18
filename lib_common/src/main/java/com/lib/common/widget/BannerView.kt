@@ -5,12 +5,14 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.VelocityTracker
+import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.view.marginEnd
 import androidx.core.view.marginStart
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.lib.common.adapter.BannerViewAdapter
 import kotlin.math.abs
 
@@ -32,6 +34,15 @@ class BannerView @JvmOverloads constructor(
     private val mLayoutManager: LinearLayoutManager
 
     private val mVelocityTracker: VelocityTracker
+
+    private val parentViewPager: ViewPager2?
+        get() {
+            var v: View? = parent as? View
+            while (v != null && v !is ViewPager2) {
+                v = v.parent as? View
+            }
+            return v as? ViewPager2
+        }
 
     private var mInterval = 0
 
@@ -56,7 +67,15 @@ class BannerView @JvmOverloads constructor(
         mRecyclerView.scrollToPosition(1)
         mRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    if(mCurrentPosition == 0){
+                        mCurrentPosition = mBannerSize - 2
+                        recyclerView.scrollToPosition(mCurrentPosition)
+                    }else if(mCurrentPosition == mBannerSize - 1) {
+                        mCurrentPosition = 1
+                        recyclerView.scrollToPosition(mCurrentPosition)
+                    }
+                }
             }
         })
     }
@@ -72,13 +91,17 @@ class BannerView @JvmOverloads constructor(
             MotionEvent.ACTION_MOVE -> {
                 mVelocityTracker.addMovement(ev)
                 mVelocityTracker.computeCurrentVelocity(1000)
-
             }
             MotionEvent.ACTION_UP -> {
                 return onTouchEvent(ev)
             }
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+        handleInterceptTouchEvent(ev)
+        return super.onInterceptTouchEvent(ev)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -114,17 +137,16 @@ class BannerView @JvmOverloads constructor(
     }
 
     private fun scrollToPosition(position: Int) {
-        if(position in 1 until mBannerSize - 1){
-            mCurrentPosition = position
-            mRecyclerView.smoothScrollToPosition(position)
-        }else if(position == 0){
-            mRecyclerView.smoothScrollToPosition(position)
-            mRecyclerView.scrollToPosition(mBannerSize - 2)
-            mCurrentPosition = mBannerSize - 2
-        }else if(position == mBannerSize - 1){
-            mRecyclerView.smoothScrollToPosition(position)
-            mRecyclerView.scrollToPosition(0)
-            mCurrentPosition = 1
+        mCurrentPosition = position
+        mRecyclerView.smoothScrollToPosition(position)
+    }
+
+    private fun handleInterceptTouchEvent(ev: MotionEvent) {
+        if(!mRecyclerView.canScrollHorizontally(1) && mRecyclerView.canScrollHorizontally(-1)) {
+            return
+        }
+        if(ev.action == MotionEvent.ACTION_DOWN) {
+            parent.requestDisallowInterceptTouchEvent(true)
         }
     }
 }
