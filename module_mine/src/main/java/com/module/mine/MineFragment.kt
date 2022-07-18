@@ -10,4 +10,5 @@ import com.lib.common.config.ARouterTable
  */
 @Route(path = ARouterTable.MINE)
 class MineFragment : BaseFragment() {
+    override fun getLayoutId(): Int = R.layout.fragment_mine
 }

@@ -1,6 +1,7 @@
 package com.example.vision
 
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.icu.number.Scale
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.vision.databinding.ActivityMainBinding
+import com.lib.common.adapter.BaseFragmentPagerAdapter
 import com.lib.common.base.BaseActivity
 import com.lib.common.config.ARouterTable
 import com.lib.common.ext.setOnItemChangeListener
@@ -47,6 +49,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         fragments.add(COMMUNITY, ARouter.getInstance().build(ARouterTable.COMMUNITY).navigation() as Fragment)
         fragments.add(NOTIFICATION, ARouter.getInstance().build(ARouterTable.NOTIFICATION).navigation() as Fragment)
         fragments.add(MINE, ARouter.getInstance().build(ARouterTable.MINE).navigation() as Fragment)
+        mBinding?.apply {
+            mainContainer.adapter = BaseFragmentPagerAdapter(fragments, supportFragmentManager, lifecycle)
+            mainContainer.isUserInputEnabled = false
+        }
     }
 
     /**
@@ -62,7 +68,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //            }
 //        }
 
-        // 将所有底部导航键放到list里方便维护
+        // 将所有底部导航键放到list里方便切换
         mBinding?.apply {
             navList.addAll(arrayOf(
                 mainBottomNavHome,
@@ -87,6 +93,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         replaceFragment(HOME)
     }
 
+    /**
+     * 设置底部导航栏的动画
+     */
     private fun startBottomAnim(i: Int) {
         val v = navList[i]
         v.isChecked = true
@@ -111,9 +120,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
+    /**
+     * 切换fragment
+     */
     private fun replaceFragment(i: Int) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, fragments[i]).commit()
+        mBinding?.mainContainer?.apply {
+            setCurrentItem(i, false)
+        }
     }
 
 }

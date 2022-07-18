@@ -10,4 +10,6 @@ import com.lib.common.config.ARouterTable
  */
 @Route(path = ARouterTable.COMMUNITY)
 class CommunityFragment : BaseFragment(){
+
+    override fun getLayoutId(): Int = R.layout.fragment_community
 }

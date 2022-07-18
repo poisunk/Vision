@@ -10,4 +10,5 @@ import com.lib.common.config.ARouterTable
  */
 @Route(path = ARouterTable.NOTIFICATION)
 class NotificationFragment : BaseFragment() {
+    override fun getLayoutId(): Int = R.layout.fragment_notification
 }
