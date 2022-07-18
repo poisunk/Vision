@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.lib.common.adapter.BaseFragmentPagerAdapter
 import com.lib.common.base.BaseFragment
+import com.lib.common.base.BaseViewModel
 import com.lib.common.config.ARouterTable
 import com.module.home.R
 import com.module.home.databinding.FragmentHomeBinding
@@ -17,7 +19,7 @@ import com.module.home.databinding.FragmentHomeBinding
  *邮箱：1714480752@qq.com
  */
 @Route(path = ARouterTable.HOME)
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, BaseViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_home
 
@@ -32,4 +34,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         val fragments = arrayListOf<Fragment>(DiscoverFragment())
         mVP.adapter = BaseFragmentPagerAdapter(fragments, childFragmentManager, lifecycle)
     }
+
 }

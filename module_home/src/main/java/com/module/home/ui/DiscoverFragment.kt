@@ -15,15 +15,12 @@ import com.module.home.viewmodel.HomeDiscoverViewModel
  *创建者： poisunk
  *邮箱：1714480752@qq.com
  */
-class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding>() {
-
-    private lateinit var mViewModel: HomeDiscoverViewModel
+class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, HomeDiscoverViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_home_discover
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mViewModel = ViewModelProvider(this).get(HomeDiscoverViewModel::class.java)
         initPage()
     }
 

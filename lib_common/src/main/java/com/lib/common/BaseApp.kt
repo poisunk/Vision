@@ -1,6 +1,7 @@
 package com.lib.common
 
 import android.app.Application
+import android.content.Context
 import com.alibaba.android.arouter.launcher.ARouter
 
 /**
@@ -9,10 +10,16 @@ import com.alibaba.android.arouter.launcher.ARouter
  */
 abstract class BaseApp : Application() {
 
+    companion object {
+        lateinit var appContext: Context
+            private set
+    }
+
     private val isDebug = false
 
     override fun onCreate() {
         super.onCreate()
+        appContext = this
         if(isDebug){
             ARouter.openLog()
             ARouter.openDebug()

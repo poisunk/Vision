@@ -10,10 +10,12 @@ import android.view.animation.ScaleAnimation
 import android.widget.CheckedTextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.vision.databinding.ActivityMainBinding
 import com.lib.common.adapter.BaseFragmentPagerAdapter
 import com.lib.common.base.BaseActivity
+import com.lib.common.base.BaseViewModel
 import com.lib.common.config.ARouterTable
 import com.lib.common.ext.setOnItemChangeListener
 
@@ -22,7 +24,7 @@ import com.lib.common.ext.setOnItemChangeListener
  *创建者： poisunk
  *邮箱：1714480752@qq.com
  */
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>() {
 
     private val HOME = 0
     private val COMMUNITY = 1
