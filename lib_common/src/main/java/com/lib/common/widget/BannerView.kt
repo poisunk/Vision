@@ -35,15 +35,6 @@ class BannerView @JvmOverloads constructor(
 
     private val mVelocityTracker: VelocityTracker
 
-    private val parentViewPager: ViewPager2?
-        get() {
-            var v: View? = parent as? View
-            while (v != null && v !is ViewPager2) {
-                v = v.parent as? View
-            }
-            return v as? ViewPager2
-        }
-
     private var mInterval = 0
 
     private var mCurrentPosition = 1
@@ -141,6 +132,13 @@ class BannerView @JvmOverloads constructor(
         mRecyclerView.smoothScrollToPosition(position)
     }
 
+    /**
+     * 在ViewPager的onInterceptTouchEvent中，如果水平方向上的滑动距离大于竖直方向的2倍，则认为是有效的切换页面的滑动，
+     * 这个事件就会被ViewPager拦截。所以在这里设置了parent.requestDisallowInterceptTouchEvent(true)不允许它拦截。
+     * 那还有一个问题就是既然parent要拦截事件了，这个事件为什么还会被它子view的InterceptTouchEvent接收到呢？
+     * 这个是因为在RecyclerView的onInterceptTouchEvent方法中，只有在满足条件Math.abs(dx) > mTouchSlop时，事件才会被拦截，
+     * 所以事件是可以在Math.abs(dx) <= mTouchSlop的时候被分发到子View的。
+     */
     private fun handleInterceptTouchEvent(ev: MotionEvent) {
         if(!mRecyclerView.canScrollHorizontally(1) && mRecyclerView.canScrollHorizontally(-1)) {
             return

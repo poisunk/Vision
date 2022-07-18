@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment() {
         Toast.makeText(context, "Home", Toast.LENGTH_SHORT).show()
 
         val mVP = v.findViewById<ViewPager2>(R.id.home_view_pager)
-        val fragments = arrayListOf<Fragment>(DiscoverFragment())
+        val fragments = arrayListOf<Fragment>(DiscoverFragment(), DiscoverFragment())
         mVP.adapter = BaseFragmentPagerAdapter(fragments, childFragmentManager, lifecycle)
     }
 }
