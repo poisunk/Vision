@@ -3,8 +3,8 @@ package com.lib.common.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lib.common.core.BaseActionEvent
-import com.lib.common.core.IViewModelAction
+import com.lib.common.event.BaseActionEvent
+import com.lib.common.event.IViewModelAction
 
 /**
  *创建者： poisunk

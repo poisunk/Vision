@@ -40,7 +40,5 @@ abstract class BaseActivity<T: ViewDataBinding, B: BaseViewModel> : AppCompatAct
         window.statusBarColor = Color.TRANSPARENT
     }
 
-    inline fun <reified T> getGenericType() = T::class.java
-
     protected abstract fun getLayoutId(): Int
 }

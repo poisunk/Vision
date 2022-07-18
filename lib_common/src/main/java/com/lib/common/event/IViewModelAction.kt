@@ -1,4 +1,4 @@
-package com.lib.common.core
+package com.lib.common.event
 
 /**
  *创建者： poisunk
