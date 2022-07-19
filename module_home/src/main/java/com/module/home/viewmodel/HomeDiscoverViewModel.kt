@@ -46,6 +46,7 @@ class HomeDiscoverViewModel : BaseViewModel() {
 
                 override fun onError(e: Throwable) {
                     showToast("网络不可用")
+                    showFailedPage()
                     dismissLoading()
                 }
 

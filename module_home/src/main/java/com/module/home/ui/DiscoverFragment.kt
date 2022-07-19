@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.lib.common.adapter.BannerViewAdapter
 import com.lib.common.base.BaseFragment
+import com.lib.common.ext.toast
 import com.module.home.R
 import com.module.home.bean.HomeData
 import com.module.home.databinding.FragmentHomeDiscoverBinding
@@ -29,10 +30,17 @@ class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, HomeDiscoverV
     }
 
     private fun handleHomeDiscoverData(data: HomeData) {
+        mBinding.homeDiscoverContent.visibility = View.VISIBLE
+        mBinding.failedPage.visibility = View.GONE
         val urls = data.itemList[0].data.itemList.map {
             it.data.image
         }
         mBinding.homeDiscoverBanner.setAdapter(BannerViewAdapter(urls, requireContext()))
+    }
+
+    override fun showFailedPage() {
+        mBinding.homeDiscoverContent.visibility = View.GONE
+        mBinding.failedPage.visibility = View.VISIBLE
     }
 
 }
