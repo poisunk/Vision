@@ -1,10 +1,13 @@
 package com.lib.common.base
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lib.common.event.BaseActionEvent
-import com.lib.common.event.IViewModelAction
+import androidx.lifecycle.viewModelScope
+import com.lib.common.action.BaseActionEvent
+import com.lib.common.action.IViewModelAction
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 
 /**
  *创建者： poisunk
@@ -12,29 +15,35 @@ import com.lib.common.event.IViewModelAction
  */
 open class BaseViewModel : ViewModel(), IViewModelAction {
 
-    private val _actionLiveData = MutableLiveData<BaseActionEvent>()
-    val mActionLiveData: LiveData<BaseActionEvent>
-        get() = _actionLiveData
+    private val actionLiveData = Channel<BaseActionEvent>()
+    val mActionLiveData: Flow<BaseActionEvent>
+        get() = actionLiveData.receiveAsFlow()
 
     override fun startLoading() {
         val action = BaseActionEvent(BaseActionEvent.SHOW_LOADING_DIALOG)
-        _actionLiveData.value = action
+        sendAction(action)
     }
 
     override fun dismissLoading() {
         val action = BaseActionEvent(BaseActionEvent.DISMISS_LOADING_DIALOG)
-        _actionLiveData.value = action
+        sendAction(action)
     }
 
     override fun showToast(message: String) {
         val action = BaseActionEvent(BaseActionEvent.SHOW_TOAST)
         action.message = message
-        _actionLiveData.value = action
+        sendAction(action)
     }
 
     override fun showFailedPage() {
         val action = BaseActionEvent(BaseActionEvent.SHOW_FAILED_PAGE)
-        _actionLiveData.value = action
+        sendAction(action)
+    }
+
+    private fun sendAction(action: BaseActionEvent) {
+        viewModelScope.launch {
+            actionLiveData.send(action)
+        }
     }
 
 }

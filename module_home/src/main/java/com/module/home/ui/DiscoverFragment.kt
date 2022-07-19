@@ -26,11 +26,9 @@ class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, HomeDiscoverV
 
     private fun initPage(){
         mViewModel.mDiscoverData.observe(viewLifecycleOwner, this::handleHomeDiscoverData)
-        mViewModel.getHomeDiscoverData()
     }
 
     private fun handleHomeDiscoverData(data: HomeData) {
-        Log.d("Discover", data.itemList[0].type)
         val urls = data.itemList[0].data.itemList.map {
             it.data.image
         }

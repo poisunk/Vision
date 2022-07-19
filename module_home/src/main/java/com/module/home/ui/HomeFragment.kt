@@ -25,14 +25,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, BaseViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initPage(view)
+        initPage()
     }
 
-    private fun initPage(v: View) {
-        Toast.makeText(context, "Home", Toast.LENGTH_SHORT).show()
-        val mVP = v.findViewById<ViewPager2>(R.id.home_view_pager)
+    private fun initPage() {
         val fragments = arrayListOf<Fragment>(DiscoverFragment())
-        mVP.adapter = BaseFragmentPagerAdapter(fragments, childFragmentManager, lifecycle)
+        mBinding.homeViewPager.adapter = BaseFragmentPagerAdapter(fragments, childFragmentManager, lifecycle)
     }
 
 }

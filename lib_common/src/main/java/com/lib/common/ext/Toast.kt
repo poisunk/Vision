@@ -8,6 +8,10 @@ import com.lib.common.BaseApp
  *邮箱：1714480752@qq.com
  */
 
-fun Toast.makeToast(text: String) {
+fun toast(text: String) {
     Toast.makeText(BaseApp.appContext, text, Toast.LENGTH_SHORT).show()
+}
+
+fun String.makeToast() {
+    Toast.makeText(BaseApp.appContext, this, Toast.LENGTH_SHORT).show()
 }

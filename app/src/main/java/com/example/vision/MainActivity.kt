@@ -61,7 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>() {
      */
     private fun initBottomNav() {
 
-//        mBinding?.apply {
+//        mBinding.apply {
 //            val first = mainNav.selectedItemId
 //            mainNav.setOnItemChangeListener {
 //                Toast.makeText(this@MainActivity, (it - first).toString(), Toast.LENGTH_SHORT).show()
@@ -126,6 +126,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>() {
      */
     private fun replaceFragment(i: Int) {
         mBinding.mainContainer.setCurrentItem(i, false)
+    }
+
+    override fun init() {
+
     }
 
 }

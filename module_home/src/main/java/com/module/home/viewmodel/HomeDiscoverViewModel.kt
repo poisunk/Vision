@@ -1,8 +1,8 @@
 package com.module.home.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.lib.common.base.BaseViewModel
 import com.lib.common.network.ApiGenerator
 import com.module.home.bean.HomeData
@@ -11,6 +11,7 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 /**
  *创建者： poisunk
@@ -22,15 +23,21 @@ class HomeDiscoverViewModel : BaseViewModel() {
     val mDiscoverData: LiveData<HomeData>
         get() = _discoverLiveData
 
-    private val mHomeApiService = ApiGenerator.create(HomeApiService::class.java)
+    private val mHomeApiService: HomeApiService = ApiGenerator.create(HomeApiService::class.java)
 
-    fun getHomeDiscoverData() {
+    init {
+        viewModelScope.launch {
+            getHomeDiscoverData()
+        }
+    }
+
+    private fun getHomeDiscoverData() {
         mHomeApiService.getDiscover()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<HomeData> {
                 override fun onSubscribe(d: Disposable) {
-
+                    startLoading()
                 }
 
                 override fun onNext(t: HomeData) {
@@ -38,11 +45,12 @@ class HomeDiscoverViewModel : BaseViewModel() {
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("Discover", e.toString())
+                    showToast("网络不可用")
+                    dismissLoading()
                 }
 
                 override fun onComplete() {
-
+                    dismissLoading()
                 }
             })
     }
