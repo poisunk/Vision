@@ -97,7 +97,7 @@ class BannerView @JvmOverloads constructor(
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when(event.action){
-            MotionEvent.ACTION_UP -> {
+            MotionEvent.ACTION_CANCEL and MotionEvent.ACTION_UP -> {
                 val position = (mInterval/2 + getScrolledX())/mInterval
                 val velocityX = mVelocityTracker.xVelocity
                 if (abs(velocityX) > SNAP_VELOCITY) {
@@ -145,7 +145,13 @@ class BannerView @JvmOverloads constructor(
             return
         }
         if(ev.action == MotionEvent.ACTION_DOWN) {
-            parent.requestDisallowInterceptTouchEvent(true)
+            // 在复杂的布局情况下，可能出现ViewPager嵌套RecyclerView嵌套BannerView这样的情况出现
+            // 所以直接让所以父View不许拦截
+            var parents = parent
+            while (parents != null) {
+                parents.requestDisallowInterceptTouchEvent(true)
+                parents = parents.parent
+            }
         }
     }
 }
