@@ -29,9 +29,15 @@
         <entry key="..\:/AndroidLearnTest/Vision/module_home/src/main/res/drawable/ic_pointer.xml" value="0.1765" />
         <entry key="..\:/AndroidLearnTest/Vision/module_home/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/AndroidLearnTest/Vision/module_home/src/main/res/layout/fragment_home_discover.xml" value="0.20384615384615384" />
+        <entry key="..\:/AndroidLearnTest/Vision/module_home/src/main/res/layout/fragment_home_news.xml" value="0.2484375" />
+        <entry key="..\:/AndroidLearnTest/Vision/module_home/src/main/res/layout/fragment_home_recommend.xml" value="0.2484375" />
+        <entry key="..\:/AndroidLearnTest/Vision/module_home/src/main/res/layout/item_auto_play_follow_card.xml" value="0.10833333333333334" />
+        <entry key="..\:/AndroidLearnTest/Vision/module_home/src/main/res/layout/item_empty.xml" value="0.2039333048311244" />
+        <entry key="..\:/AndroidLearnTest/Vision/module_home/src/main/res/layout/item_text_card.xml" value="0.536" />
         <entry key="..\:/AndroidLearnTest/Vision/module_home/src/main/res/layout/layout_failed_page.xml" value="0.2484375" />
         <entry key="..\:/AndroidLearnTest/Vision/module_mine/src/main/res/layout/fragment_mine.xml" value="0.2484375" />
         <entry key="..\:/AndroidLearnTest/Vision/module_notification/src/main/res/layout/fragment_notification.xml" value="0.2484375" />
+        <entry key="..\:/AndroidLearnTest/Vision/module_video/src/main/res/layout/activity_video.xml" value="0.2039333048311244" />
       </map>
     </option>
   </component>

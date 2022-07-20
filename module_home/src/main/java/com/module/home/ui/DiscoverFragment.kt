@@ -1,22 +1,19 @@
 package com.module.home.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import com.lib.common.adapter.BannerViewAdapter
 import com.lib.common.base.BaseFragment
-import com.lib.common.ext.toast
 import com.module.home.R
 import com.module.home.bean.HomeData
 import com.module.home.databinding.FragmentHomeDiscoverBinding
-import com.module.home.viewmodel.HomeDiscoverViewModel
+import com.module.home.viewmodel.DiscoverViewModel
 
 /**
  *创建者： poisunk
  *邮箱：1714480752@qq.com
  */
-class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, HomeDiscoverViewModel>() {
+class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, DiscoverViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_home_discover
 

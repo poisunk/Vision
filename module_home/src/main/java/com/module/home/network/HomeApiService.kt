@@ -13,5 +13,11 @@ import java.util.*
 interface HomeApiService{
 
     @GET("v7/index/tab/discovery")
-    fun getDiscover(): Observable<HomeData>
+    fun getDiscoverData(): Observable<HomeData>
+
+    @GET("v5/index/tab/allRec")
+    fun getRecommendData(): Observable<HomeData>
+
+    @GET("v5/index/tab/feed")
+    fun getNewsData(): Observable<HomeData>
 }

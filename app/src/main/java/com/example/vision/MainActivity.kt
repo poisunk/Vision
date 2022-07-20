@@ -35,8 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>() {
 
     private val navList = mutableListOf<CheckedTextView>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun init() {
         initPage()
         initBottomNav()
     }
@@ -128,8 +127,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>() {
         mBinding.mainContainer.setCurrentItem(i, false)
     }
 
-    override fun init() {
 
-    }
 
 }

@@ -17,22 +17,22 @@ import kotlinx.coroutines.launch
  *创建者： poisunk
  *邮箱：1714480752@qq.com
  */
-class HomeDiscoverViewModel : BaseViewModel() {
+class NewsViewModel : BaseViewModel() {
 
-    private val _discoverLiveData = MutableLiveData<HomeData>()
-    val mDiscoverData: LiveData<HomeData>
-        get() = _discoverLiveData
+    private val _newsLiveData = MutableLiveData<HomeData>()
+    val mNewsData: LiveData<HomeData>
+        get() = _newsLiveData
 
-    private val mHomeApiService: HomeApiService = ApiGenerator.create(HomeApiService::class.java)
+    private val mHomeApiService = ApiGenerator.create(HomeApiService::class.java)
 
     init {
         viewModelScope.launch {
-            getHomeDiscoverData()
+            getNewsData()
         }
     }
 
-    private fun getHomeDiscoverData() {
-        mHomeApiService.getDiscover()
+    private fun getNewsData() {
+        mHomeApiService.getNewsData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<HomeData> {
@@ -41,7 +41,7 @@ class HomeDiscoverViewModel : BaseViewModel() {
                 }
 
                 override fun onNext(t: HomeData) {
-                    _discoverLiveData.value = t
+                    _newsLiveData.value = t
                 }
 
                 override fun onError(e: Throwable) {
@@ -55,5 +55,4 @@ class HomeDiscoverViewModel : BaseViewModel() {
                 }
             })
     }
-
 }
