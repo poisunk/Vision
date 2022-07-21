@@ -3,10 +3,9 @@ package com.module.home.ui
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.lib.common.base.BaseFragment
-import com.lib.common.base.BaseViewModel
+import com.lib.common.ui.BaseFragment
 import com.module.home.R
-import com.module.home.adapter.NewsRecyclerAdapter
+import com.module.home.adapter.HomePageRecyclerAdapter
 import com.module.home.bean.HomeData
 import com.module.home.databinding.FragmentHomeNewsBinding
 import com.module.home.viewmodel.NewsViewModel
@@ -24,12 +23,12 @@ class NewsFragment: BaseFragment<FragmentHomeNewsBinding, NewsViewModel>() {
     }
 
     private fun initPage() {
-        mBinding.homeNewsRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         mViewModel.mNewsData.observe(viewLifecycleOwner, this::handleHomeData)
     }
 
     private fun handleHomeData(data: HomeData) {
-        val adapter = NewsRecyclerAdapter(data.itemList)
+        val adapter = HomePageRecyclerAdapter(requireContext(), data.itemList)
         mBinding.homeNewsRecycler.adapter = adapter
+        mBinding.homeNewsRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
 }

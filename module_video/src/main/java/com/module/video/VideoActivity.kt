@@ -1,7 +1,7 @@
 package com.module.video
 
-import com.lib.common.base.BaseActivity
-import com.lib.common.base.BaseViewModel
+import com.lib.common.ui.BaseActivity
+import com.lib.common.ui.BaseViewModel
 import com.module.video.databinding.ActivityVideoBinding
 
 /**

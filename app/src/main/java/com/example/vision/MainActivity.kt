@@ -1,23 +1,16 @@
 package com.example.vision
 
-import android.animation.ValueAnimator
-import android.annotation.SuppressLint
-import android.icu.number.Scale
-import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.CheckedTextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.vision.databinding.ActivityMainBinding
 import com.lib.common.adapter.BaseFragmentPagerAdapter
-import com.lib.common.base.BaseActivity
-import com.lib.common.base.BaseViewModel
+import com.lib.common.ui.BaseActivity
+import com.lib.common.ui.BaseViewModel
 import com.lib.common.config.ARouterTable
-import com.lib.common.ext.setOnItemChangeListener
 
 
 /**
@@ -59,14 +52,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>() {
      * 初始化底部导航栏
      */
     private fun initBottomNav() {
-
-//        mBinding.apply {
-//            val first = mainNav.selectedItemId
-//            mainNav.setOnItemChangeListener {
-//                Toast.makeText(this@MainActivity, (it - first).toString(), Toast.LENGTH_SHORT).show()
-//                true
-//            }
-//        }
 
         // 将所有底部导航键放到list里方便切换
         mBinding.apply {

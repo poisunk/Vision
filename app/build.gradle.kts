@@ -8,5 +8,7 @@ dependencies {
     implementation(project(":module_home"))
     implementation(project(":module_mine"))
     implementation(project(":module_notification"))
+    implementation(project(":module_video"))
+
 }
 

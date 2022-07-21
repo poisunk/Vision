@@ -2,11 +2,13 @@ package com.module.home
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.lib.common.adapter.BaseFragmentPagerAdapter
-import com.lib.common.base.BaseFragment
-import com.lib.common.base.BaseViewModel
+import com.lib.common.ui.BaseFragment
+import com.lib.common.ui.BaseViewModel
 import com.lib.common.config.ARouterTable
 import com.module.home.databinding.FragmentHomeBinding
 import com.module.home.ui.DiscoverFragment
@@ -28,8 +30,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, BaseViewModel>() {
     }
 
     private fun initPage() {
+        val tabs: List<ImageView>
+        mBinding.apply {
+            tabs = listOf(
+                homeBarDiscoverPointer,
+                homeBarRecommendPointer,
+                homeBarNewsPointer
+            )
+        }
         val fragments = arrayListOf<Fragment>(DiscoverFragment(), RecommendFragment(), NewsFragment())
         mBinding.homeViewPager.adapter = BaseFragmentPagerAdapter(fragments, childFragmentManager, lifecycle)
+        mBinding.homeViewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                for((i, v) in tabs.withIndex()){
+                    if (i != position) {
+                        v.visibility = View.GONE
+                    }else {
+                        v.visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
     }
 
 }

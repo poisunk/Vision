@@ -3,8 +3,8 @@ package com.module.home.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.lib.common.ui.BaseViewModel
 import com.lib.common.network.ApiGenerator
+import com.lib.common.ui.BaseViewModel
 import com.module.home.bean.HomeData
 import com.module.home.network.HomeApiService
 import io.reactivex.Observer
@@ -17,22 +17,22 @@ import kotlinx.coroutines.launch
  *创建者： poisunk
  *邮箱：1714480752@qq.com
  */
-class NewsViewModel : BaseViewModel() {
+class RecommendViewModel: BaseViewModel() {
 
-    private val _newsLiveData = MutableLiveData<HomeData>()
-    val mNewsData: LiveData<HomeData>
-        get() = _newsLiveData
+    private val _recommendLiveData = MutableLiveData<HomeData>()
+    val mRecommendData: LiveData<HomeData>
+        get() = _recommendLiveData
 
     private val mHomeApiService = ApiGenerator.create(HomeApiService::class.java)
 
     init {
         viewModelScope.launch {
-            getNewsData()
+            getRecommendData()
         }
     }
 
-    private fun getNewsData() {
-        mHomeApiService.getNewsData()
+    private fun getRecommendData(){
+        mHomeApiService.getRecommendData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<HomeData> {
@@ -41,7 +41,7 @@ class NewsViewModel : BaseViewModel() {
                 }
 
                 override fun onNext(t: HomeData) {
-                    _newsLiveData.value = t
+                    _recommendLiveData.value = t
                 }
 
                 override fun onError(e: Throwable) {

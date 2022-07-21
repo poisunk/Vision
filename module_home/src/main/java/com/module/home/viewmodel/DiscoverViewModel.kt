@@ -3,7 +3,7 @@ package com.module.home.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.lib.common.base.BaseViewModel
+import com.lib.common.ui.BaseViewModel
 import com.lib.common.network.ApiGenerator
 import com.module.home.bean.HomeData
 import com.module.home.network.HomeApiService

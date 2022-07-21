@@ -1,6 +1,6 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package com.lib.common.base
+package com.lib.common.ui
 
 import android.graphics.Color
 import android.os.Bundle
@@ -37,6 +37,7 @@ abstract class BaseActivity<T: ViewDataBinding, B: BaseViewModel> : AppCompatAct
             minActiveState = Lifecycle.State.RESUMED,
             this::handleActionEvent
         )
+        init()
     }
 
     private fun cancelStatusBar() {

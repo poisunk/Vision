@@ -2,9 +2,10 @@ package com.module.home.ui
 
 import android.os.Bundle
 import android.view.View
-import com.lib.common.adapter.BannerViewAdapter
-import com.lib.common.base.BaseFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.lib.common.ui.BaseFragment
 import com.module.home.R
+import com.module.home.adapter.HomePageRecyclerAdapter
 import com.module.home.bean.HomeData
 import com.module.home.databinding.FragmentHomeDiscoverBinding
 import com.module.home.viewmodel.DiscoverViewModel
@@ -29,10 +30,8 @@ class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, DiscoverViewM
     private fun handleHomeDiscoverData(data: HomeData) {
         mBinding.homeDiscoverContent.visibility = View.VISIBLE
         mBinding.failedPage.visibility = View.GONE
-        val urls = data.itemList[0].data.itemList.map {
-            it.data.image
-        }
-        mBinding.homeDiscoverBanner.setAdapter(BannerViewAdapter(urls, requireContext()))
+        mBinding.homeDiscoverContent.adapter = HomePageRecyclerAdapter(requireContext(), data.itemList)
+        mBinding.homeDiscoverContent.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
 
     override fun showFailedPage() {

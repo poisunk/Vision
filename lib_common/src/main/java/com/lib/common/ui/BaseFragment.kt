@@ -1,6 +1,6 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package com.lib.common.base
+package com.lib.common.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,8 +1,8 @@
 package com.module.mine
 
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.lib.common.base.BaseFragment
-import com.lib.common.base.BaseViewModel
+import com.lib.common.ui.BaseFragment
+import com.lib.common.ui.BaseViewModel
 import com.lib.common.config.ARouterTable
 import com.module.mine.databinding.FragmentMineBinding
 

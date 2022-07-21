@@ -16,19 +16,22 @@ data class ItemList(
 data class Data(
     val dataType: String,
     val itemList: List<ItemList>,
-    val id: Int,
     val type: String,
     val text: String,
     val title: String,
     val description: String,
     val image: String,
     val actionUrl: String,
-    val adTrack: List<Any>,
-    val shade: Boolean,
-    val label: Label,
-    val labelList: List<Label>,
     val header: Header,
-    val autoPlay: Boolean
+    val autoPlay: Boolean,
+    val content: Content,
+    val cover: Cover,
+    val owner: Owner,
+    val duration: Int,
+    val tags: List<Tag>,
+    val icon: String,
+    val category: String,
+    val author: Author
 )
 
 data class Label(
@@ -46,5 +49,28 @@ data class Header(
     val textAlign: String,
     val actionUrl: String,
     val rightText: String,
+    val icon: String
+)
+
+data class Content(
+    val type: String,
+    val data: Data
+)
+
+data class Cover(
+    val feed: String
+)
+
+data class Owner(
+    val avatar: String,
+    val nickname: String
+)
+
+data class Tag(
+    val name: String
+)
+
+data class Author(
+    val name: String,
     val icon: String
 )
