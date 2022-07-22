@@ -33,7 +33,8 @@ fun convertVideoData(data: Data) = IVideoService.VideoData(
     replyCount = data.consumption.replyCount,
     avatar = data.author.icon,
     nickname = data.author.name,
-    authorDescription = data.author.description
+    authorDescription = data.author.description,
+    cover = data.cover.feed
 )
 
 fun View.onClickStartVideo(context: Context, data: Data) {

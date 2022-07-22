@@ -24,6 +24,7 @@ interface IVideoService: IProvider {
         val replyCount: Int,
         val avatar: String,
         val nickname: String,
-        val authorDescription: String
+        val authorDescription: String,
+        val cover: String
     ): Serializable
 }

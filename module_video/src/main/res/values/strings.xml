@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">module_video</string>
+    <string name="follow">+关注</string>
+
 </resources>
