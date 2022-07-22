@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.module.home.R
 import com.module.home.bean.ItemList
 import com.module.home.holder.*
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 
 /**
  *创建者： poisunk
@@ -16,6 +17,9 @@ class HomePageRecyclerAdapter(
     private val context: Context,
     private val itemList: List<ItemList>
 ): RecyclerView.Adapter<BaseHomeViewHolder>() {
+
+    private val mVideoPlayerList = mutableListOf<StandardGSYVideoPlayer>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHomeViewHolder {
         return when (viewType) {
             HomeItemType.HORIZONTAL_SCROLL_CARD.ordinal -> {
@@ -44,7 +48,9 @@ class HomePageRecyclerAdapter(
             }
             HomeItemType.AUTO_PLAY_FOLLOW_CARD.ordinal -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_auto_play_follow_card, parent, false)
-                AutoPlayCardHolder(view)
+                AutoPlayCardHolder(view).apply {
+                    mVideoPlayerList.add(this.videoPlayer)
+                }
             }
             HomeItemType.SQUARE_CARD_COLLECTION.ordinal -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_special_square_card, parent, false)
@@ -95,4 +101,10 @@ class HomePageRecyclerAdapter(
     }
 
     override fun getItemCount(): Int = itemList.size
+
+    fun pauseVideo() {
+        mVideoPlayerList.forEach{
+            it.onVideoPause()
+        }
+    }
 }

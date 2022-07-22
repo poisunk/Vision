@@ -54,7 +54,6 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
         window.statusBarColor = Color.BLACK
         val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView)
         windowInsetsController?.isAppearanceLightStatusBars = false
-        PlayerFactory.setPlayManager(SystemPlayerManager::class.java)
         mBinding.videoPlayer.setUp(mData.playUrl, true, mData.title)
         mBinding.videoRecommendRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mViewModel.mVideoData.observe(this, this::handleVideoRecommendData)

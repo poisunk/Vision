@@ -9,29 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/video_cover"
+        <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+            android:id="@+id/video_auto_player"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="centerCrop" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_play_arrow_24"
-            app:layout_constraintTop_toTopOf="@id/video_cover"
-            app:layout_constraintBottom_toBottomOf="@id/video_cover"
-            app:layout_constraintLeft_toLeftOf="@id/video_cover"
-            app:layout_constraintRight_toRightOf="@id/video_cover"/>
-
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/video_cover"
+            app:layout_constraintTop_toBottomOf="@id/video_auto_player"
             android:paddingBottom="15dp">
 
             <com.google.android.material.imageview.ShapeableImageView

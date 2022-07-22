@@ -26,9 +26,16 @@ class NewsFragment: BaseFragment<FragmentHomeNewsBinding, NewsViewModel>() {
         mViewModel.mNewsData.observe(viewLifecycleOwner, this::handleHomeData)
     }
 
+    private var adapter: HomePageRecyclerAdapter? = null
+
     private fun handleHomeData(data: HomeData) {
-        val adapter = HomePageRecyclerAdapter(requireContext(), data.itemList)
+        adapter = HomePageRecyclerAdapter(requireContext(), data.itemList)
         mBinding.homeNewsRecycler.adapter = adapter
         mBinding.homeNewsRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        adapter?.pauseVideo()
     }
 }

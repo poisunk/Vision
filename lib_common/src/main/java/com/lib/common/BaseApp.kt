@@ -3,6 +3,8 @@ package com.lib.common
 import android.app.Application
 import android.content.Context
 import com.alibaba.android.arouter.launcher.ARouter
+import com.shuyu.gsyvideoplayer.player.PlayerFactory
+import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
 
 /**
  *创建者： poisunk
@@ -25,5 +27,6 @@ abstract class BaseApp : Application() {
             ARouter.openDebug()
         }
         ARouter.init(this)
+        PlayerFactory.setPlayManager(SystemPlayerManager::class.java)
     }
 }
