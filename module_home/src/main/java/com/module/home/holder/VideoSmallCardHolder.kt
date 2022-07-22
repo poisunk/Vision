@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.module.home.R
 import com.module.home.bean.Data
+import com.module.home.utils.getMinute
+import com.module.home.utils.onClickStartVideo
 
 /**
  *创建者： poisunk
@@ -26,14 +28,7 @@ class VideoSmallCardHolder(private val v: View): BaseHomeViewHolder(v) {
         duration.text =getMinute(data.duration)
         tag.text = "#${data.tags[0].name}"
         Glide.with(context).load(data.cover.feed).into(cover)
+        cover.onClickStartVideo(context, data)
     }
 
-    private fun getMinute(seconds: Int): String {
-        val m = seconds/60
-        val s = seconds%60
-        if (s < 10){
-            return "${m}:0${s}"
-        }
-        return "${m}:${s}"
-    }
 }

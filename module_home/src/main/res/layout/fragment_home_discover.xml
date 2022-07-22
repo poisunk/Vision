@@ -6,9 +6,10 @@
 
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    <com.module.home.widget.RefreshLayout-->
+<!--        android:id="@+id/discover_refresh"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,9 +17,10 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_discover_content"
+                android:id="@+id/home_discover_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:overScrollMode="never"/>
 
             <include android:id="@+id/failed_page"
                 android:visibility="gone"
@@ -26,7 +28,7 @@
 
         </LinearLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+<!--    </com.module.home.widget.RefreshLayout>-->
 
 
 </layout>

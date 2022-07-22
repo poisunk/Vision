@@ -7,13 +7,15 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.lib.common.adapter.BaseFragmentPagerAdapter
+import com.lib.common.config.ARouterTable
+import com.lib.common.ext.forceSetOverScrollMode
 import com.lib.common.ui.BaseFragment
 import com.lib.common.ui.BaseViewModel
-import com.lib.common.config.ARouterTable
 import com.module.home.databinding.FragmentHomeBinding
 import com.module.home.ui.DiscoverFragment
 import com.module.home.ui.NewsFragment
 import com.module.home.ui.RecommendFragment
+
 
 /**
  *创建者： poisunk
@@ -39,6 +41,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, BaseViewModel>() {
             )
         }
         val fragments = arrayListOf<Fragment>(DiscoverFragment(), RecommendFragment(), NewsFragment())
+        mBinding.homeViewPager.forceSetOverScrollMode(View.OVER_SCROLL_NEVER)
         mBinding.homeViewPager.adapter = BaseFragmentPagerAdapter(fragments, childFragmentManager, lifecycle)
         mBinding.homeViewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {

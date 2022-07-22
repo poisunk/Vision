@@ -45,7 +45,6 @@ abstract class BaseActivity<T: ViewDataBinding, B: BaseViewModel> : AppCompatAct
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val windowInsetsController = ViewCompat.getWindowInsetsController(decorView)
         windowInsetsController?.isAppearanceLightStatusBars = true
-        decorView.fitsSystemWindows = false
         window.statusBarColor = Color.TRANSPARENT
     }
 

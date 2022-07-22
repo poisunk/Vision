@@ -28,14 +28,14 @@ class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, DiscoverViewM
     }
 
     private fun handleHomeDiscoverData(data: HomeData) {
-        mBinding.homeDiscoverContent.visibility = View.VISIBLE
+        mBinding.homeDiscoverRecycler.visibility = View.VISIBLE
         mBinding.failedPage.visibility = View.GONE
-        mBinding.homeDiscoverContent.adapter = HomePageRecyclerAdapter(requireContext(), data.itemList)
-        mBinding.homeDiscoverContent.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        mBinding.homeDiscoverRecycler.adapter = HomePageRecyclerAdapter(requireContext(), data.itemList)
+        mBinding.homeDiscoverRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
 
     override fun showFailedPage() {
-        mBinding.homeDiscoverContent.visibility = View.GONE
+        mBinding.homeDiscoverRecycler.visibility = View.GONE
         mBinding.failedPage.visibility = View.VISIBLE
     }
 

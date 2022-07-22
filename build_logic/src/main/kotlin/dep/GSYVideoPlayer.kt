@@ -9,7 +9,7 @@ import org.gradle.kotlin.dsl.dependencies
  *邮箱：1714480752@qq.com
  */
 object GSYVideoPlayer {
-    const val GSYVideoPlayer = "com.github.CarGuo.GSYVideoPlayer:GSYVideoPlayer:v8.3.1-release-jitpack"
+    const val GSYVideoPlayer = "com.shuyu:GSYVideoPlayer:8.1.2"
 }
 
 fun Project.dependenciesVideoPlayer() = dependencies {

@@ -1,10 +1,13 @@
 package com.example.vision
 
+import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.CheckedTextView
 import androidx.fragment.app.Fragment
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.vision.databinding.ActivityMainBinding
 import com.lib.common.adapter.BaseFragmentPagerAdapter
@@ -43,7 +46,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>() {
         fragments.add(COMMUNITY, ARouter.getInstance().build(ARouterTable.COMMUNITY).navigation() as Fragment)
         fragments.add(NOTIFICATION, ARouter.getInstance().build(ARouterTable.NOTIFICATION).navigation() as Fragment)
         fragments.add(MINE, ARouter.getInstance().build(ARouterTable.MINE).navigation() as Fragment)
-
         mBinding.mainContainer.adapter = BaseFragmentPagerAdapter(fragments, supportFragmentManager, lifecycle)
         mBinding.mainContainer.isUserInputEnabled = false
     }

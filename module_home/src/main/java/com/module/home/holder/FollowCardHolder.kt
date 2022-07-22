@@ -5,9 +5,13 @@ import android.media.Image
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
+import com.lib.common.service.IVideoService
 import com.module.home.R
 import com.module.home.bean.Data
+import com.module.home.utils.getMinute
+import com.module.home.utils.onClickStartVideo
 
 /**
  *创建者： poisunk
@@ -24,19 +28,14 @@ class FollowCardHolder(private val v: View): BaseHomeViewHolder(v) {
 
     override fun onBindView(context: Context, data: Data) {
         duration.text = getMinute(data.content.data.duration)
-        title.text = data.header.title
+        title.text = data.content.data.title
         nickname.text = data.content.data.author.name
         category.text = data.content.data.category
         Glide.with(context).load(data.content.data.cover.feed).into(cover)
         Glide.with(context).load(data.content.data.author.icon).into(avatar)
+        cover.onClickStartVideo(context, data.content.data)
     }
 
-    private fun getMinute(seconds: Int): String {
-        val m = seconds/60
-        val s = seconds%60
-        if (s < 10){
-            return "${m}:0${s}"
-        }
-        return "${m}:${s}"
-    }
+
+
 }

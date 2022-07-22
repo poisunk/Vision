@@ -14,7 +14,7 @@ data class ItemList(
 )
 
 data class Data(
-    val dataType: String,
+    val id: Long,
     val itemList: List<ItemList>,
     val type: String,
     val text: String,
@@ -23,7 +23,6 @@ data class Data(
     val image: String,
     val actionUrl: String,
     val header: Header,
-    val autoPlay: Boolean,
     val content: Content,
     val cover: Cover,
     val owner: Owner,
@@ -31,7 +30,10 @@ data class Data(
     val tags: List<Tag>,
     val icon: String,
     val category: String,
-    val author: Author
+    val author: Author,
+    val playUrl: String,
+    val date: Long,
+    val consumption: Consumption
 )
 
 data class Label(
@@ -54,7 +56,7 @@ data class Header(
 
 data class Content(
     val type: String,
-    val data: Data
+    val data: Data,
 )
 
 data class Cover(
@@ -72,5 +74,12 @@ data class Tag(
 
 data class Author(
     val name: String,
-    val icon: String
+    val icon: String,
+    val description: String
+)
+
+data class Consumption(
+    val collectionCount: Int,
+    val shareCount: Int,
+    val replyCount: Int
 )
