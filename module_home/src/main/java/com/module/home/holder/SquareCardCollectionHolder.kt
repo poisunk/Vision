@@ -19,10 +19,14 @@ class SquareCardCollectionHolder(private val v: View): BaseHomeViewHolder(v) {
     private val rightTitle: TextView = v.findViewById(R.id.special_card_right_title)
     private val recycler: RecyclerView = v.findViewById(R.id.special_card_recycler)
 
-    override fun onBindView(context: Activity, data: Data) {
+    var onVideoCoverClickListener: ((View, Data) -> Unit)? = null
+
+    override fun onBindView(context: Context, data: Data) {
         title.text = data.header.title
         rightTitle.text = data.header.rightText
-        recycler.adapter = CardCollectionRecyclerAdapter(context, data.itemList)
+        recycler.adapter = CardCollectionRecyclerAdapter(context, data.itemList).apply {
+            onVideoCoverClickListener = this@SquareCardCollectionHolder.onVideoCoverClickListener
+        }
         recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 }

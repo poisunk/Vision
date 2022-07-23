@@ -5,11 +5,9 @@ import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.module.home.R
 import com.module.home.bean.Data
-import com.module.home.utils.onClickStartVideo
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 
 /**
@@ -22,7 +20,7 @@ class AutoPlayCardHolder(private val v: View) : BaseHomeViewHolder(v) {
     private val description: TextView = v.findViewById(R.id.video_description)
     val videoPlayer: StandardGSYVideoPlayer = v.findViewById(R.id.video_auto_player)
 
-    override fun onBindView(context: Activity, data: Data) {
+    override fun onBindView(context: Context, data: Data) {
         Glide.with(context).load(data.content.data.owner.avatar).into(avatar)
         nickname.text = data.content.data.owner.nickname
         description.text = data.content.data.description

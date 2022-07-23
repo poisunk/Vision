@@ -38,24 +38,3 @@ fun convertVideoData(data: Data) = IVideoService.VideoData(
     authorDescription = data.author.description,
     cover = data.cover.feed
 )
-
-fun View.onClickStartVideo(context: Context, data: Data, activity: Activity) {
-    val mVideoData = convertVideoData(data)
-    setOnClickListener {
-        val mVideoService = ServiceManager.getService(IVideoService::class)
-        val bundle = ActivityOptions.makeSceneTransitionAnimation(
-            activity,
-            this,
-            "video_player"
-        ).toBundle()
-        mVideoService.starActivity(context, mVideoData, bundle)
-    }
-}
-
-fun View.onClickStartVideo(context: Context, data: Data) {
-    val mVideoData = convertVideoData(data)
-    setOnClickListener {
-        val mVideoService = ServiceManager.getService(IVideoService::class)
-        mVideoService.startActivity(context, mVideoData)
-    }
-}

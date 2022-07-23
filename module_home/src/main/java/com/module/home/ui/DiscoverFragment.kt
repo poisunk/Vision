@@ -30,7 +30,7 @@ class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, DiscoverViewM
     private fun handleHomeDiscoverData(data: HomeData) {
         mBinding.homeDiscoverRecycler.visibility = View.VISIBLE
         mBinding.failedPage.visibility = View.GONE
-        mBinding.homeDiscoverRecycler.adapter = HomePageRecyclerAdapter(requireActivity(), data.itemList)
+        mBinding.homeDiscoverRecycler.adapter = HomePageRecyclerAdapter(requireContext(), data.itemList, this)
         mBinding.homeDiscoverRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
 

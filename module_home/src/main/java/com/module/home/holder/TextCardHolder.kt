@@ -17,7 +17,7 @@ class TextCardHolder(private val v: View) :BaseHomeViewHolder(v) {
 
     private val text: TextView = v.findViewById(R.id.item_text_card)
 
-    override fun onBindView(context: Activity, data: Data) {
+    override fun onBindView(context: Context, data: Data) {
         text.text = data.text
     }
 

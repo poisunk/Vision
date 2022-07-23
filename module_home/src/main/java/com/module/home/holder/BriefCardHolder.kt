@@ -19,7 +19,7 @@ class BriefCardHolder(private val v: View): BaseHomeViewHolder(v) {
     private val title: TextView = v.findViewById(R.id.brief_title)
     private val description: TextView = v.findViewById(R.id.brief_description)
 
-    override fun onBindView(context: Activity, data: Data) {
+    override fun onBindView(context: Context, data: Data) {
         title.text = data.title
         description.text = data.description
         Glide.with(context).load(data.icon).into(cover)

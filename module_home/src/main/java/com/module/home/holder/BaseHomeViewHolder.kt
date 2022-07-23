@@ -11,6 +11,5 @@ import com.module.home.bean.Data
  *邮箱：1714480752@qq.com
  */
 abstract class BaseHomeViewHolder(private val v: View): RecyclerView.ViewHolder(v) {
-
-    abstract fun onBindView(context: Activity, data: Data)
+    abstract fun onBindView(context: Context, data: Data)
 }

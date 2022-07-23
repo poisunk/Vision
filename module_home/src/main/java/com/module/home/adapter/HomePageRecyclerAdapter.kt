@@ -1,13 +1,21 @@
 package com.module.home.adapter
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.lib.common.service.IVideoService
+import com.lib.common.service.ServiceManager
+import com.module.home.HomeFragment
 import com.module.home.R
+import com.module.home.bean.Data
 import com.module.home.bean.ItemList
 import com.module.home.holder.*
+import com.module.home.utils.convertVideoData
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 
 /**
@@ -15,11 +23,27 @@ import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
  *邮箱：1714480752@qq.com
  */
 class HomePageRecyclerAdapter(
-    private val context: Activity,
-    private val itemList: List<ItemList>
+    private val context: Context,
+    private val itemList: List<ItemList>,
+    fragment: Fragment
 ): RecyclerView.Adapter<BaseHomeViewHolder>() {
 
     private val mVideoPlayerList = mutableListOf<StandardGSYVideoPlayer>()
+
+    var onVideoCoverClickListener: ((View, Data) -> Unit)
+
+    init {
+        onVideoCoverClickListener = { view, data ->
+            val mVideoData = convertVideoData(data)
+            val mVideoService = ServiceManager.getService(IVideoService::class)
+            val bundle = ActivityOptions.makeSceneTransitionAnimation(
+                fragment.requireActivity(),
+                view,
+                "video_player"
+            ).toBundle()
+            mVideoService.starActivity(fragment.requireContext(), mVideoData, bundle)
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHomeViewHolder {
         return when (viewType) {
@@ -45,7 +69,7 @@ class HomePageRecyclerAdapter(
             }
             HomeItemType.FOLLOW_CARD.ordinal -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_follow_card, parent, false)
-                FollowCardHolder(context, view)
+                FollowCardHolder(view)
             }
             HomeItemType.AUTO_PLAY_FOLLOW_CARD.ordinal -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_auto_play_follow_card, parent, false)
@@ -98,6 +122,27 @@ class HomePageRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: BaseHomeViewHolder, position: Int) {
+        when(holder) {
+            is FollowCardHolder -> {
+                holder.cover.setOnClickListener {
+                    onVideoCoverClickListener.invoke(
+                        it,
+                        itemList[position].data.content.data
+                    )
+                }
+            }
+            is VideoSmallCardHolder -> {
+                holder.cover.setOnClickListener {
+                    onVideoCoverClickListener.invoke(
+                        it,
+                        itemList[position].data
+                    )
+                }
+            }
+            is SquareCardCollectionHolder -> {
+                holder.onVideoCoverClickListener = this.onVideoCoverClickListener
+            }
+        }
         holder.onBindView(context, itemList[position].data)
     }
 

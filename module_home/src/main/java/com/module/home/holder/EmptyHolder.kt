@@ -13,7 +13,7 @@ import com.module.home.bean.ItemList
  */
 class EmptyHolder(private val v: View) : BaseHomeViewHolder(v) {
 
-    override fun onBindView(context: Activity, data: Data) {
+    override fun onBindView(context: Context, data: Data) {
 
     }
 }

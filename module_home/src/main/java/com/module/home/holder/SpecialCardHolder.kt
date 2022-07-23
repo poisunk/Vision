@@ -19,7 +19,7 @@ class SpecialCardHolder(private val v: View):  BaseHomeViewHolder(v){
     private val rightTitle: TextView = v.findViewById(R.id.special_card_right_title)
     private val recycler: RecyclerView = v.findViewById(R.id.special_card_recycler)
 
-    override fun onBindView(context: Activity, data: Data) {
+    override fun onBindView(context: Context, data: Data) {
         title.text = data.header.title
         rightTitle.text = data.header.rightText
         recycler.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
