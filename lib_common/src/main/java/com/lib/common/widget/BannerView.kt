@@ -1,6 +1,10 @@
 package com.lib.common.widget
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -12,7 +16,6 @@ import androidx.core.view.marginEnd
 import androidx.core.view.marginStart
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.lib.common.adapter.BannerViewAdapter
 import kotlin.math.abs
 
@@ -27,6 +30,7 @@ class BannerView @JvmOverloads constructor(
     defStyleRes:Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr, defStyleRes){
 
+    // 判断是否划向下一页的速度判断标准
     private val SNAP_VELOCITY = 500
 
     private val mRecyclerView:RecyclerView
@@ -35,12 +39,27 @@ class BannerView @JvmOverloads constructor(
 
     private val mVelocityTracker: VelocityTracker
 
+    // 每个view的长度，也就是每个view中心点的间隔
     private var mInterval = 0
 
     private var mCurrentPosition = 1
 
     private var mBannerSize = 0
 
+    private var isPlaying = false
+
+    private val AUTO_PLAY = 0
+
+    private val AUTO_PLAY_SPEED = 3500L
+
+    private val mHandler = object: Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+            if(msg.what == AUTO_PLAY) {
+                scrollToPosition(++mCurrentPosition)
+                sendEmptyMessageDelayed(AUTO_PLAY, AUTO_PLAY_SPEED)
+            }
+        }
+    }
 
     init {
         mRecyclerView = RecyclerView(context)
@@ -56,7 +75,13 @@ class BannerView @JvmOverloads constructor(
         mRecyclerView.adapter = adapter
         mBannerSize = adapter.itemCount
         mRecyclerView.scrollToPosition(1)
+        // 当滑动停止时的监听，用来实现无限轮播
         mRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if(dx != 0){
+                    setBannerPlayState(false)
+                }
+            }
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if(newState == RecyclerView.SCROLL_STATE_IDLE){
                     if(mCurrentPosition == 0){
@@ -66,6 +91,7 @@ class BannerView @JvmOverloads constructor(
                         mCurrentPosition = 1
                         recyclerView.scrollToPosition(mCurrentPosition)
                     }
+                    setBannerPlayState(true)
                 }
             }
         })
@@ -95,9 +121,11 @@ class BannerView @JvmOverloads constructor(
         return super.onInterceptTouchEvent(ev)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when(event.action){
             MotionEvent.ACTION_CANCEL and MotionEvent.ACTION_UP -> {
+                // 当事件结束时，根据当前位置和速度判断划向哪一个位置
                 val position = (mInterval/2 + getScrolledX())/mInterval
                 val velocityX = mVelocityTracker.xVelocity
                 if (abs(velocityX) > SNAP_VELOCITY) {
@@ -131,6 +159,26 @@ class BannerView @JvmOverloads constructor(
         mCurrentPosition = position
         Log.d("Banner", position.toString())
         mRecyclerView.smoothScrollToPosition(position)
+    }
+
+    private fun setBannerPlayState(play: Boolean){
+        if(!isPlaying && play){
+            mHandler.sendEmptyMessageDelayed(AUTO_PLAY, AUTO_PLAY_SPEED)
+            isPlaying = true
+        }else if(isPlaying && !play){
+            mHandler.removeMessages(AUTO_PLAY)
+            isPlaying = false
+        }
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        setBannerPlayState(true)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        setBannerPlayState(false)
     }
 
     /**
