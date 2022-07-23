@@ -37,9 +37,4 @@ class NewsFragment: BaseFragment<FragmentHomeNewsBinding, NewsViewModel>() {
         mBinding.homeNewsRecycler.adapter = adapter
         mBinding.homeNewsRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
-
-    override fun onPause() {
-        super.onPause()
-        adapter?.pauseVideo()
-    }
 }

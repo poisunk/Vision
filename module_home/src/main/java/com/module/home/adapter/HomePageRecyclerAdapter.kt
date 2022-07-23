@@ -28,8 +28,6 @@ class HomePageRecyclerAdapter(
     fragment: Fragment
 ): RecyclerView.Adapter<BaseHomeViewHolder>() {
 
-    private val mVideoPlayerList = mutableListOf<StandardGSYVideoPlayer>()
-
     var onVideoCoverClickListener: ((View, Data) -> Unit)
 
     init {
@@ -73,9 +71,7 @@ class HomePageRecyclerAdapter(
             }
             HomeItemType.AUTO_PLAY_FOLLOW_CARD.ordinal -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_auto_play_follow_card, parent, false)
-                AutoPlayCardHolder(view).apply {
-                    mVideoPlayerList.add(this.videoPlayer)
-                }
+                AutoPlayCardHolder(view)
             }
             HomeItemType.SQUARE_CARD_COLLECTION.ordinal -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_special_square_card, parent, false)
@@ -146,11 +142,31 @@ class HomePageRecyclerAdapter(
         holder.onBindView(context, itemList[position].data)
     }
 
-    override fun getItemCount(): Int = itemList.size
+    private var isOtherVideoPlaying: Boolean = false
 
-    fun pauseVideo() {
-        mVideoPlayerList.forEach{
-            it.onVideoPause()
+    override fun onViewDetachedFromWindow(holder: BaseHomeViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        when(holder) {
+            is AutoPlayCardHolder -> {
+                if(holder.videoPlayer.isInPlayingState) {
+                    holder.videoPlayer.onVideoPause()
+                    isOtherVideoPlaying = false
+                }
+            }
         }
     }
+
+    override fun onViewAttachedToWindow(holder: BaseHomeViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        when(holder) {
+            is AutoPlayCardHolder -> {
+                if(!isOtherVideoPlaying) {
+                    holder.videoPlayer.startPlayLogic()
+                    isOtherVideoPlaying = true
+                }
+            }
+        }
+    }
+
+    override fun getItemCount(): Int = itemList.size
 }

@@ -2,9 +2,12 @@ package com.module.home.holder
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.doOnAttach
+import androidx.core.view.doOnDetach
 import com.bumptech.glide.Glide
 import com.module.home.R
 import com.module.home.bean.Data
