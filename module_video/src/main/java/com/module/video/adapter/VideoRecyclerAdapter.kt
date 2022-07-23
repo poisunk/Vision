@@ -26,7 +26,7 @@ class VideoRecyclerAdapter(
                 TextCardHolder(view)
             }
             VideoItemType.VIDEO_SMALL_CARD.ordinal -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_video_small_card, parent, false)
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.video_item_video_small_card, parent, false)
                 VideoSmallCardHolder(view)
             }
             else -> {
