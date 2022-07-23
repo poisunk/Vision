@@ -32,6 +32,7 @@ class AutoPlayCardHolder(private val v: View) : BaseHomeViewHolder(v) {
         val cover = ImageView(context).apply { scaleType = ImageView.ScaleType.CENTER_CROP }
         Glide.with(context).load(data.content.data.cover.feed).into(cover)
         videoPlayer.thumbImageView = cover
+        videoPlayer.keepScreenOn = false
     }
 
 

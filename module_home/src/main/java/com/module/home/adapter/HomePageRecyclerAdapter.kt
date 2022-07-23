@@ -1,6 +1,5 @@
 package com.module.home.adapter
 
-import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,13 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.lib.common.service.IVideoService
 import com.lib.common.service.ServiceManager
-import com.module.home.HomeFragment
 import com.module.home.R
 import com.module.home.bean.Data
 import com.module.home.bean.ItemList
 import com.module.home.holder.*
 import com.module.home.utils.convertVideoData
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 
 /**
  *创建者： poisunk
@@ -29,6 +26,8 @@ class HomePageRecyclerAdapter(
 ): RecyclerView.Adapter<BaseHomeViewHolder>() {
 
     var onVideoCoverClickListener: ((View, Data) -> Unit)
+
+    var onVideoPlayerDetachListener: (() -> Unit)? = null
 
     init {
         onVideoCoverClickListener = { view, data ->
@@ -117,6 +116,8 @@ class HomePageRecyclerAdapter(
         }
     }
 
+    private var isOtherVideoPlaying: Boolean = false
+
     override fun onBindViewHolder(holder: BaseHomeViewHolder, position: Int) {
         when(holder) {
             is FollowCardHolder -> {
@@ -135,37 +136,29 @@ class HomePageRecyclerAdapter(
                     )
                 }
             }
+            is AutoPlayCardHolder -> {
+                holder.videoPlayer.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener{
+                    override fun onViewAttachedToWindow(v: View?) {
+                        onVideoPlayerDetachListener?.invoke()
+                        if(!isOtherVideoPlaying) {
+                            holder.videoPlayer.startPlayLogic()
+                            isOtherVideoPlaying = true
+                        }
+                    }
+
+                    override fun onViewDetachedFromWindow(v: View?) {
+                        if(holder.videoPlayer.isInPlayingState) {
+                            holder.videoPlayer.onVideoPause()
+                            isOtherVideoPlaying = false
+                        }
+                    }
+                })
+            }
             is SquareCardCollectionHolder -> {
                 holder.onVideoCoverClickListener = this.onVideoCoverClickListener
             }
         }
         holder.onBindView(context, itemList[position].data)
-    }
-
-    private var isOtherVideoPlaying: Boolean = false
-
-    override fun onViewDetachedFromWindow(holder: BaseHomeViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        when(holder) {
-            is AutoPlayCardHolder -> {
-                if(holder.videoPlayer.isInPlayingState) {
-                    holder.videoPlayer.onVideoPause()
-                    isOtherVideoPlaying = false
-                }
-            }
-        }
-    }
-
-    override fun onViewAttachedToWindow(holder: BaseHomeViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        when(holder) {
-            is AutoPlayCardHolder -> {
-                if(!isOtherVideoPlaying) {
-                    holder.videoPlayer.startPlayLogic()
-                    isOtherVideoPlaying = true
-                }
-            }
-        }
     }
 
     override fun getItemCount(): Int = itemList.size
