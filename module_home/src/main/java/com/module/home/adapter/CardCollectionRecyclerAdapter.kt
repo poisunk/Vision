@@ -1,5 +1,6 @@
 package com.module.home.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +16,13 @@ import com.module.home.holder.FollowCardHolder
  *邮箱：1714480752@qq.com
  */
 class CardCollectionRecyclerAdapter(
-    private val context: Context,
+    private val context: Activity,
     private val itemList: List<ItemList>
 ): RecyclerView.Adapter<FollowCardHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowCardHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_follow_card, parent, false)
-        return FollowCardHolder(view)
+        return FollowCardHolder(context, view)
     }
 
     override fun getItemCount(): Int = itemList.size

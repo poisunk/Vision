@@ -1,6 +1,7 @@
 package com.lib.common.service
 
 import android.content.Context
+import android.os.Bundle
 import com.alibaba.android.arouter.facade.template.IProvider
 import java.io.Serializable
 
@@ -11,6 +12,8 @@ import java.io.Serializable
 interface IVideoService: IProvider {
 
     fun startActivity(context: Context, data: VideoData)
+
+    fun starActivity(context: Context, data: VideoData, bundle: Bundle)
 
     data class VideoData(
         val playUrl: String,

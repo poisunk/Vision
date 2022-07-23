@@ -1,5 +1,7 @@
 package com.module.home.utils
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
@@ -36,6 +38,19 @@ fun convertVideoData(data: Data) = IVideoService.VideoData(
     authorDescription = data.author.description,
     cover = data.cover.feed
 )
+
+fun View.onClickStartVideo(context: Context, data: Data, activity: Activity) {
+    val mVideoData = convertVideoData(data)
+    setOnClickListener {
+        val mVideoService = ServiceManager.getService(IVideoService::class)
+        val bundle = ActivityOptions.makeSceneTransitionAnimation(
+            activity,
+            this,
+            "video_player"
+        ).toBundle()
+        mVideoService.starActivity(context, mVideoData, bundle)
+    }
+}
 
 fun View.onClickStartVideo(context: Context, data: Data) {
     val mVideoData = convertVideoData(data)

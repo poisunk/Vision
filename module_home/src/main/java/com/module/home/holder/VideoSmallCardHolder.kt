@@ -1,6 +1,7 @@
 package com.module.home.holder
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
@@ -23,7 +24,7 @@ class VideoSmallCardHolder(private val v: View): BaseHomeViewHolder(v) {
     private val duration: TextView = v.findViewById(R.id.video_small_duration)
 
     @SuppressLint("SetTextI18n")
-    override fun onBindView(context: Context, data: Data) {
+    override fun onBindView(context: Activity, data: Data) {
         title.text = data.title
         duration.text =getMinute(data.duration)
         tag.text = "#${data.tags[0].name}"

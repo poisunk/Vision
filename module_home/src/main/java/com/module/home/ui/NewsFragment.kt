@@ -29,7 +29,7 @@ class NewsFragment: BaseFragment<FragmentHomeNewsBinding, NewsViewModel>() {
     private var adapter: HomePageRecyclerAdapter? = null
 
     private fun handleHomeData(data: HomeData) {
-        adapter = HomePageRecyclerAdapter(requireContext(), data.itemList)
+        adapter = HomePageRecyclerAdapter(requireActivity(), data.itemList)
         mBinding.homeNewsRecycler.adapter = adapter
         mBinding.homeNewsRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }

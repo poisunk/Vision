@@ -1,5 +1,6 @@
 package com.module.home.holder
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
@@ -21,7 +22,7 @@ class AutoPlayCardHolder(private val v: View) : BaseHomeViewHolder(v) {
     private val description: TextView = v.findViewById(R.id.video_description)
     val videoPlayer: StandardGSYVideoPlayer = v.findViewById(R.id.video_auto_player)
 
-    override fun onBindView(context: Context, data: Data) {
+    override fun onBindView(context: Activity, data: Data) {
         Glide.with(context).load(data.content.data.owner.avatar).into(avatar)
         nickname.text = data.content.data.owner.nickname
         description.text = data.content.data.description

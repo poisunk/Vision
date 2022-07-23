@@ -1,5 +1,6 @@
 package com.module.home.holder
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,7 @@ import com.module.home.bean.Data
 class HorizontalScrollCardHolder(private val v: View): BaseHomeViewHolder(v) {
     private val banner: BannerView = v.findViewById(R.id.item_banner)
 
-    override fun onBindView(context: Context, data: Data) {
+    override fun onBindView(context: Activity, data: Data) {
         val urls = data.itemList.map {
             it.data.image
         }

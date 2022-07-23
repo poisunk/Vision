@@ -1,5 +1,6 @@
 package com.module.home.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
  *邮箱：1714480752@qq.com
  */
 class HomePageRecyclerAdapter(
-    private val context: Context,
+    private val context: Activity,
     private val itemList: List<ItemList>
 ): RecyclerView.Adapter<BaseHomeViewHolder>() {
 
@@ -44,7 +45,7 @@ class HomePageRecyclerAdapter(
             }
             HomeItemType.FOLLOW_CARD.ordinal -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_follow_card, parent, false)
-                FollowCardHolder(view)
+                FollowCardHolder(context, view)
             }
             HomeItemType.AUTO_PLAY_FOLLOW_CARD.ordinal -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_auto_play_follow_card, parent, false)

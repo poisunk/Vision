@@ -6,11 +6,14 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.icu.util.RangeValueIterator
+import android.os.Bundle
 import android.renderscript.Allocation
 import android.renderscript.Allocation.createFromBitmap
 import android.renderscript.Element.U8_4
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -42,6 +45,12 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
             context.startActivity(Intent(context, VideoActivity::class.java).apply {
                 putExtra("VideoData", data)
             })
+        }
+
+        fun startActivity(context: Context, data: IVideoService.VideoData, bundle: Bundle){
+            context.startActivity(Intent(context, VideoActivity::class.java).apply {
+                putExtra("VideoData", data)
+            }, bundle)
         }
     }
 

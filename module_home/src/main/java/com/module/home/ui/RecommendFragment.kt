@@ -27,7 +27,7 @@ class RecommendFragment: BaseFragment<FragmentHomeRecommendBinding, RecommendVie
     }
 
     private fun handleHomeData(data: HomeData) {
-        val adapter = HomePageRecyclerAdapter(requireContext(), data.itemList)
+        val adapter = HomePageRecyclerAdapter(requireActivity(), data.itemList)
         mBinding.homeRecommendRecycler.adapter = adapter
         mBinding.homeRecommendRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 

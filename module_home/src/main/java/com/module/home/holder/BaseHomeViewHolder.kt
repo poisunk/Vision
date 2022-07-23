@@ -1,5 +1,6 @@
 package com.module.home.holder
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -11,5 +12,5 @@ import com.module.home.bean.Data
  */
 abstract class BaseHomeViewHolder(private val v: View): RecyclerView.ViewHolder(v) {
 
-    abstract fun onBindView(context: Context, data: Data)
+    abstract fun onBindView(context: Activity, data: Data)
 }
