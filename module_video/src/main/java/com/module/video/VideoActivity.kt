@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.icu.util.RangeValueIterator
 import android.os.Bundle
 import android.renderscript.Allocation
@@ -73,6 +74,24 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
         mBinding.videoAuthorNickname.text = mData.nickname
         Glide.with(this).load(mData.avatar).into(mBinding.videoAuthorAvatar)
         Glide.with(this).load(mData.cover).transform(BlurTransform(100)).into(mBinding.videoDetailBackground)
+
+        initMotion()
+    }
+
+    private var mMotionStateIsStart = true
+
+    private fun initMotion() {
+        mBinding.videoDetailMotionButton.setOnClickListener{
+            if(mMotionStateIsStart){
+                mBinding.videoDetailMotion.transitionToEnd()
+                mBinding.videoDetailMotionButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+                mMotionStateIsStart = false
+            }else {
+                mBinding.videoDetailMotion.transitionToStart()
+                mBinding.videoDetailMotionButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+                mMotionStateIsStart = true
+            }
+        }
     }
 
     override fun onResume() {
