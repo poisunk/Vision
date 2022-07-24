@@ -2,9 +2,11 @@ package com.module.video.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.module.video.R
+import com.module.video.bean.Data
 import com.module.video.holder.BaseVideoViewHolder
 import com.module.video.bean.ItemList
 import com.module.video.holder.EmptyHolder
@@ -19,6 +21,9 @@ class VideoRecyclerAdapter(
     private val context: Context,
     private val itemList: List<ItemList>
 ): RecyclerView.Adapter<BaseVideoViewHolder>() {
+
+    var videoSmallCardClickListener: ((View, Data) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseVideoViewHolder {
         return when(viewType){
             VideoItemType.TEXT_CARD.ordinal -> {
@@ -45,6 +50,14 @@ class VideoRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: BaseVideoViewHolder, position: Int) {
+        if(holder is VideoSmallCardHolder){
+            holder.cover.setOnClickListener {
+                videoSmallCardClickListener?.invoke(
+                    it,
+                    itemList[position].data
+                )
+            }
+        }
         holder.onBindView(context, itemList[position].data)
     }
 

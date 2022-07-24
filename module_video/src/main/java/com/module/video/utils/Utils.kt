@@ -17,9 +17,18 @@ fun getMinute(seconds: Int): String {
     }
     return "${m}:${s}"
 }
-
-fun View.onClickStartVideo(context: Context, data: Data) {
-    setOnClickListener {
-
-    }
-}
+fun convertVideoData(data: Data) = IVideoService.VideoData(
+    playUrl = data.playUrl,
+    id = data.id,
+    title = data.title,
+    description = data.description,
+    date = data.date,
+    category = data.category,
+    collectionCount = data.consumption.collectionCount,
+    shareCount = data.consumption.shareCount,
+    replyCount = data.consumption.replyCount,
+    avatar = data.author.icon,
+    nickname = data.author.name,
+    authorDescription = data.author.description,
+    cover = data.cover.feed
+)

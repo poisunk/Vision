@@ -86,33 +86,15 @@ class HomePageRecyclerAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when(itemList[position].type) {
-            "horizontalScrollCard" -> {
-                HomeItemType.HORIZONTAL_SCROLL_CARD.ordinal
-            }
-            "squareCardCollection" -> {
-                HomeItemType.SQUARE_CARD_COLLECTION.ordinal
-            }
-            "textCard" -> {
-                HomeItemType.TEXT_CARD.ordinal
-            }
-            "specialSquareCardCollection" -> {
-                HomeItemType.SPECIAL_SQUARE_CARD_COLLECTION.ordinal
-            }
-            "videoSmallCard" -> {
-                HomeItemType.VIDEO_SMALL_CARD.ordinal
-            }
-            "briefCard" -> {
-                HomeItemType.BRIEF_CARD.ordinal
-            }
-            "followCard" -> {
-                HomeItemType.FOLLOW_CARD.ordinal
-            }
-            "autoPlayFollowCard" -> {
-                HomeItemType.AUTO_PLAY_FOLLOW_CARD.ordinal
-            }
-            else -> {
-                HomeItemType.EMPTY.ordinal
-            }
+            "horizontalScrollCard" -> HomeItemType.HORIZONTAL_SCROLL_CARD.ordinal
+            "squareCardCollection" -> HomeItemType.SQUARE_CARD_COLLECTION.ordinal
+            "textCard" -> HomeItemType.TEXT_CARD.ordinal
+            "specialSquareCardCollection" -> HomeItemType.SPECIAL_SQUARE_CARD_COLLECTION.ordinal
+            "videoSmallCard" -> HomeItemType.VIDEO_SMALL_CARD.ordinal
+            "briefCard" -> HomeItemType.BRIEF_CARD.ordinal
+            "followCard" -> HomeItemType.FOLLOW_CARD.ordinal
+            "autoPlayFollowCard" -> HomeItemType.AUTO_PLAY_FOLLOW_CARD.ordinal
+            else -> HomeItemType.EMPTY.ordinal
         }
     }
 

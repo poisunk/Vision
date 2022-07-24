@@ -28,6 +28,7 @@ import com.module.video.adapter.VideoRecyclerAdapter
 import com.module.video.bean.VideoData
 import com.module.video.databinding.ActivityVideoBinding
 import com.module.video.utils.BlurTransform
+import com.module.video.utils.convertVideoData
 import com.module.video.viewmodel.VideoViewModel
 import com.shuyu.gsyvideoplayer.player.PlayerFactory
 import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
@@ -69,18 +70,21 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
         mBinding.videoRecommendRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mViewModel.mVideoData.observe(this, this::handleVideoRecommendData)
 
+        initVideoDetail()
+        initMotion()
+        initFailPage()
+    }
+
+    private var mMotionStateIsStart = true
+
+    private fun initVideoDetail(){
         mBinding.videoDetailTitle.text = mData.title
         mBinding.videoDetailCategory.text = mData.category + SimpleDateFormat("yyyy-M-dd HH:mm").format(Date(mData.date))
         mBinding.videoDetailDescription.text = mData.description
         mBinding.videoAuthorNickname.text = mData.nickname
         Glide.with(this).load(mData.avatar).into(mBinding.videoAuthorAvatar)
         Glide.with(this).load(mData.cover).transform(BlurTransform(100)).into(mBinding.videoDetailBackground)
-
-        initMotion()
-        initFailPage()
     }
-
-    private var mMotionStateIsStart = true
 
     private fun initMotion() {
         mBinding.videoDetailMotionButton.setOnClickListener{
@@ -136,7 +140,14 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
     private fun handleVideoRecommendData(data: VideoData) {
         mBinding.videoRecommendRecycler.visibility = View.VISIBLE
         mBinding.failedPage.visibility = View.GONE
-        mBinding.videoRecommendRecycler.adapter = VideoRecyclerAdapter(this, data.itemList)
+        mBinding.videoRecommendRecycler.adapter = VideoRecyclerAdapter(this, data.itemList).apply {
+            videoSmallCardClickListener = { view, data ->
+                startActivity(
+                    context = this@VideoActivity,
+                    data = convertVideoData(data)
+                )
+            }
+        }
     }
 
 
