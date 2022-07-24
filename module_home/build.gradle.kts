@@ -1,7 +1,4 @@
-import dep.dependenciesGlide
-import dep.dependenciesRetrofit
-import dep.dependenciesRxJava
-import dep.dependenciesVideoPlayer
+import dep.*
 
 plugins {
     id("com.plugins.lib")
@@ -11,6 +8,7 @@ dependenciesRetrofit()
 dependenciesRxJava()
 dependenciesGlide()
 dependenciesVideoPlayer()
+dependenciesLottie()
 
 dependencies {
     implementation(project(":lib_common"))

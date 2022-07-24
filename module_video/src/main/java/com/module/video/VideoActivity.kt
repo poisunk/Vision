@@ -13,6 +13,7 @@ import android.renderscript.Allocation.createFromBitmap
 import android.renderscript.Element.U8_4
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
+import android.view.View
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.core.view.ViewCompat
@@ -76,6 +77,7 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
         Glide.with(this).load(mData.cover).transform(BlurTransform(100)).into(mBinding.videoDetailBackground)
 
         initMotion()
+        initFailPage()
     }
 
     private var mMotionStateIsStart = true
@@ -91,6 +93,27 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
                 mBinding.videoDetailMotionButton.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
                 mMotionStateIsStart = true
             }
+        }
+    }
+
+    override fun showFailedPage() {
+        mBinding.videoRecommendRecycler.visibility = View.GONE
+        mBinding.failedPage.visibility = View.VISIBLE
+        mBinding.failedImage.apply {
+            setAnimation("failed.json")
+            loop(false)
+            playAnimation()
+        }
+    }
+
+    private fun initFailPage() {
+        mBinding.failedButton.setOnClickListener{
+            mBinding.failedImage.apply {
+                setAnimation("loading.json")
+                loop(true)
+                playAnimation()
+            }
+            mViewModel.getVideoRecommend(mData.id)
         }
     }
 
@@ -111,6 +134,8 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
     }
 
     private fun handleVideoRecommendData(data: VideoData) {
+        mBinding.videoRecommendRecycler.visibility = View.VISIBLE
+        mBinding.failedPage.visibility = View.GONE
         mBinding.videoRecommendRecycler.adapter = VideoRecyclerAdapter(this, data.itemList)
     }
 

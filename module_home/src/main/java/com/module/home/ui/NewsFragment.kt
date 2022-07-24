@@ -25,11 +25,14 @@ class NewsFragment: BaseFragment<FragmentHomeNewsBinding, NewsViewModel>() {
 
     private fun initPage() {
         mViewModel.mNewsData.observe(viewLifecycleOwner, this::handleHomeData)
+        initFailPage()
     }
 
     private var adapter: HomePageRecyclerAdapter? = null
 
     private fun handleHomeData(data: HomeData) {
+        mBinding.homeNewsRecycler.visibility = View.VISIBLE
+        mBinding.failedPage.visibility = View.GONE
         adapter = HomePageRecyclerAdapter(requireActivity(), data.itemList, this).apply {
             onVideoPlayerDetachListener = {
                 val windowInsetsController = ViewCompat.getWindowInsetsController(requireActivity().window.decorView)
@@ -38,5 +41,26 @@ class NewsFragment: BaseFragment<FragmentHomeNewsBinding, NewsViewModel>() {
         }
         mBinding.homeNewsRecycler.adapter = adapter
         mBinding.homeNewsRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    }
+
+    override fun showFailedPage() {
+        mBinding.homeNewsRecycler.visibility = View.GONE
+        mBinding.failedPage.visibility = View.VISIBLE
+        mBinding.failedImage.apply {
+            setAnimation("failed.json")
+            loop(false)
+            playAnimation()
+        }
+    }
+
+    private fun initFailPage() {
+        mBinding.failedButton.setOnClickListener{
+            mBinding.failedImage.apply {
+                setAnimation("loading.json")
+                loop(true)
+                playAnimation()
+            }
+            mViewModel.getNewsData()
+        }
     }
 }

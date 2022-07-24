@@ -1,7 +1,7 @@
 package com.module.home.ui
 
+import android.animation.Animator
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lib.common.ui.BaseFragment
@@ -26,6 +26,7 @@ class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, DiscoverViewM
 
     private fun initPage(){
         mViewModel.mDiscoverData.observe(viewLifecycleOwner, this::handleHomeDiscoverData)
+        initFailPage()
     }
 
     private fun handleHomeDiscoverData(data: HomeData) {
@@ -38,6 +39,22 @@ class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, DiscoverViewM
     override fun showFailedPage() {
         mBinding.homeDiscoverRecycler.visibility = View.GONE
         mBinding.failedPage.visibility = View.VISIBLE
+        mBinding.failedImage.apply {
+            setAnimation("failed.json")
+            loop(false)
+            playAnimation()
+        }
+    }
+
+    private fun initFailPage() {
+        mBinding.failedButton.setOnClickListener{
+            mBinding.failedImage.apply {
+                setAnimation("loading.json")
+                loop(true)
+                playAnimation()
+            }
+            mViewModel.getHomeDiscoverData()
+        }
     }
 
 }

@@ -24,12 +24,36 @@ class RecommendFragment: BaseFragment<FragmentHomeRecommendBinding, RecommendVie
 
     private fun initPage() {
         mViewModel.mRecommendData.observe(viewLifecycleOwner, this::handleHomeData)
+        initFailPage()
     }
 
     private fun handleHomeData(data: HomeData) {
+        mBinding.homeRecommendRecycler.visibility = View.VISIBLE
+        mBinding.failedPage.visibility = View.GONE
         val adapter = HomePageRecyclerAdapter(requireContext(), data.itemList, this)
         mBinding.homeRecommendRecycler.adapter = adapter
         mBinding.homeRecommendRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
+    }
+
+    override fun showFailedPage() {
+        mBinding.homeRecommendRecycler.visibility = View.GONE
+        mBinding.failedPage.visibility = View.VISIBLE
+        mBinding.failedImage.apply {
+            setAnimation("failed.json")
+            loop(false)
+            playAnimation()
+        }
+    }
+
+    private fun initFailPage() {
+        mBinding.failedButton.setOnClickListener{
+            mBinding.failedImage.apply {
+                setAnimation("loading.json")
+                loop(true)
+                playAnimation()
+            }
+            mViewModel.getRecommendData()
+        }
     }
 }

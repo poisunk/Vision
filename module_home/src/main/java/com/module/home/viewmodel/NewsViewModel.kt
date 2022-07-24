@@ -31,7 +31,7 @@ class NewsViewModel : BaseViewModel() {
         }
     }
 
-    private fun getNewsData() {
+    fun getNewsData() {
         mHomeApiService.getNewsData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

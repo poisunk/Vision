@@ -31,7 +31,7 @@ class RecommendViewModel: BaseViewModel() {
         }
     }
 
-    private fun getRecommendData(){
+    fun getRecommendData(){
         mHomeApiService.getRecommendData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -31,7 +31,7 @@ class DiscoverViewModel : BaseViewModel() {
         }
     }
 
-    private fun getHomeDiscoverData() {
+    fun getHomeDiscoverData() {
         mHomeApiService.getDiscoverData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
