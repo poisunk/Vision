@@ -3,24 +3,15 @@ package com.module.video
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
+import android.content.res.Configuration
 import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.icu.util.RangeValueIterator
 import android.os.Bundle
-import android.renderscript.Allocation
-import android.renderscript.Allocation.createFromBitmap
-import android.renderscript.Element.U8_4
-import android.renderscript.RenderScript
-import android.renderscript.ScriptIntrinsicBlur
+import android.util.Log
 import android.view.View
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.util.Pair
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 import com.lib.common.config.ARouterTable
 import com.lib.common.service.IVideoService
 import com.lib.common.ui.BaseActivity
@@ -30,8 +21,10 @@ import com.module.video.databinding.ActivityVideoBinding
 import com.module.video.utils.BlurTransform
 import com.module.video.utils.convertVideoData
 import com.module.video.viewmodel.VideoViewModel
-import com.shuyu.gsyvideoplayer.player.PlayerFactory
-import com.shuyu.gsyvideoplayer.player.SystemPlayerManager
+import com.shuyu.gsyvideoplayer.GSYVideoManager
+import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -61,22 +54,52 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
 
     override fun getLayoutId(): Int = R.layout.activity_video
 
-    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun init() {
         window.statusBarColor = Color.BLACK
         val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView)
         windowInsetsController?.isAppearanceLightStatusBars = false
-        mBinding.videoPlayer.setUp(mData.playUrl, true, mData.title)
+
         mBinding.videoRecommendRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mViewModel.mVideoData.observe(this, this::handleVideoRecommendData)
 
+        initVideoPlayer()
         initVideoDetail()
         initMotion()
         initFailPage()
     }
 
+    private lateinit var orientationUtils: OrientationUtils
+
+    private fun initVideoPlayer() {
+        GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_DEFAULT);
+        mBinding.videoPlayer.apply {
+            setUp(mData.playUrl, true, mData.title)
+            orientationUtils = OrientationUtils(this@VideoActivity, this)
+            orientationUtils.isEnable = true
+            fullscreenButton.setOnClickListener {
+                orientationUtils.resolveByClick()
+                mViewModel.isFullScreen = !mViewModel.isFullScreen
+            }
+            backButton.setOnClickListener {
+                onBackPressed()
+            }
+            isShowFullAnimation = !mViewModel.isFullScreen
+            if(mViewModel.isFullScreen){
+                startWindowFullscreen(this@VideoActivity, true, true)
+                fullWindowPlayer.fullscreenButton.setOnClickListener {
+                    orientationUtils.resolveByClick()
+                    mViewModel.isFullScreen = !mViewModel.isFullScreen
+                }
+                fullWindowPlayer.backButton.setOnClickListener {
+                    onBackPressed()
+                }
+            }
+        }
+    }
+
     private var mMotionStateIsStart = true
 
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     private fun initVideoDetail(){
         mBinding.videoDetailTitle.text = mData.title
         mBinding.videoDetailCategory.text = mData.category + SimpleDateFormat("yyyy-M-dd HH:mm").format(Date(mData.date))
@@ -121,20 +144,33 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        mBinding.videoPlayer.startPlayLogic()
+    override fun onBackPressed() {
+        if (GSYVideoManager.backFromWindowFull(this)) {
+            mViewModel.isFullScreen = false
+            return
+        }
+        super.onBackPressed()
+    }
+
+    override fun onStart() {
+        super.onStart()
         mViewModel.getVideoRecommend(mData.id)
     }
 
+    override fun onResume() {
+        mBinding.videoPlayer.currentPlayer.startPlayLogic()
+        super.onResume()
+    }
+
     override fun onPause() {
+        mBinding.videoPlayer.currentPlayer.onVideoPause()
         super.onPause()
-        mBinding.videoPlayer.onVideoPause()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         mBinding.videoPlayer.release()
+        orientationUtils.releaseListener()
+        super.onDestroy()
     }
 
     private fun handleVideoRecommendData(data: VideoData) {

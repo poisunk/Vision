@@ -20,6 +20,8 @@ class VideoViewModel: BaseViewModel() {
     val mVideoData: LiveData<VideoData>
         get() = _videoLiveData
 
+    var isFullScreen = false
+
     private val mVideoApiService = ApiGenerator.create(VideoApiService::class.java)
 
     fun getVideoRecommend(id: Long) {

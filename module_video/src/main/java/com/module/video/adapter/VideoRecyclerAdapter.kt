@@ -61,5 +61,5 @@ class VideoRecyclerAdapter(
         holder.onBindView(context, itemList[position].data)
     }
 
-    override fun getItemCount(): Int = itemList.size + 1
+    override fun getItemCount(): Int = itemList.size
 }
