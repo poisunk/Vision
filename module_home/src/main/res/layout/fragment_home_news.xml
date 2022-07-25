@@ -6,10 +6,10 @@
 
     </data>
 
-<!--    <com.module.home.widget.RefreshLayout-->
-<!--        android:id="@+id/news_refresh"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
+    <com.module.home.widget.RefreshLayout
+        android:id="@+id/news_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,5 +63,5 @@
 
         </LinearLayout>
 
-<!--    </com.module.home.widget.RefreshLayout>-->
+    </com.module.home.widget.RefreshLayout>
 </layout>

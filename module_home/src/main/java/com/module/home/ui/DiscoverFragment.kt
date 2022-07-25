@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lib.common.ui.BaseFragment
 import com.module.home.R
 import com.module.home.adapter.HomePageRecyclerAdapter
@@ -26,6 +27,18 @@ class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, DiscoverViewM
 
     private fun initPage(){
         mViewModel.mDiscoverData.observe(viewLifecycleOwner, this::handleHomeDiscoverData)
+        mBinding.homeDiscoverRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        mBinding.homeDiscoverRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                mBinding.homeDiscoverRecycler.apply {
+                    isEnabled = childCount == 0 || recyclerView.getChildAt(0).top >= 0
+                }
+            }
+        })
+        mBinding.discoverRefresh.setOnRefreshListener {
+            mViewModel.getHomeDiscoverData()
+        }
         initFailPage()
     }
 
@@ -33,7 +46,7 @@ class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, DiscoverViewM
         mBinding.homeDiscoverRecycler.visibility = View.VISIBLE
         mBinding.failedPage.visibility = View.GONE
         mBinding.homeDiscoverRecycler.adapter = HomePageRecyclerAdapter(requireContext(), data.itemList, this)
-        mBinding.homeDiscoverRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        mBinding.discoverRefresh.isRefreshing = false
     }
 
     override fun showFailedPage() {
@@ -44,6 +57,7 @@ class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, DiscoverViewM
             loop(false)
             playAnimation()
         }
+        mBinding.discoverRefresh.isRefreshing = false
     }
 
     private fun initFailPage() {

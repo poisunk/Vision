@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lib.common.ui.BaseFragment
 import com.module.home.R
 import com.module.home.adapter.HomePageRecyclerAdapter
@@ -25,6 +26,17 @@ class NewsFragment: BaseFragment<FragmentHomeNewsBinding, NewsViewModel>() {
 
     private fun initPage() {
         mViewModel.mNewsData.observe(viewLifecycleOwner, this::handleHomeData)
+        mBinding.homeNewsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                mBinding.homeNewsRecycler.apply {
+                    isEnabled = childCount == 0 || recyclerView.getChildAt(0).top >= 0
+                }
+            }
+        })
+        mBinding.newsRefresh.setOnRefreshListener {
+            mViewModel.getNewsData()
+        }
         initFailPage()
     }
 
@@ -41,6 +53,7 @@ class NewsFragment: BaseFragment<FragmentHomeNewsBinding, NewsViewModel>() {
         }
         mBinding.homeNewsRecycler.adapter = adapter
         mBinding.homeNewsRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        mBinding.newsRefresh.isRefreshing = false
     }
 
     override fun showFailedPage() {
@@ -51,6 +64,7 @@ class NewsFragment: BaseFragment<FragmentHomeNewsBinding, NewsViewModel>() {
             loop(false)
             playAnimation()
         }
+        mBinding.newsRefresh.isRefreshing = false
     }
 
     private fun initFailPage() {
