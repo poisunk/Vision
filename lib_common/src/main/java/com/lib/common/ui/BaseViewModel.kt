@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
  */
 open class BaseViewModel : ViewModel(), IViewModelAction {
 
+    // 当 Channel 没有订阅者时，向其发送的数据会挂起，保证订阅者出现时第一时间接收到这个数据
     private val actionLiveData = Channel<BaseActionEvent>()
     val mActionLiveData: Flow<BaseActionEvent>
         get() = actionLiveData.receiveAsFlow()

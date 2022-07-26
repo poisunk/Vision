@@ -20,6 +20,7 @@ class VideoViewModel: BaseViewModel() {
     val mVideoData: LiveData<VideoData>
         get() = _videoLiveData
 
+    // 现在是否是全屏
     var isFullScreen = false
 
     private val mVideoApiService = ApiGenerator.create(VideoApiService::class.java)

@@ -29,7 +29,7 @@ class NewsFragment: BaseFragment<FragmentHomeNewsBinding, NewsViewModel>() {
         mBinding.homeNewsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                mBinding.homeNewsRecycler.apply {
+                mBinding.newsRefresh.apply {
                     isEnabled = childCount == 0 || recyclerView.getChildAt(0).top >= 0
                 }
             }
@@ -46,7 +46,7 @@ class NewsFragment: BaseFragment<FragmentHomeNewsBinding, NewsViewModel>() {
         mBinding.homeNewsRecycler.visibility = View.VISIBLE
         mBinding.failedPage.visibility = View.GONE
         adapter = HomePageRecyclerAdapter(requireActivity(), data.itemList, this).apply {
-            onVideoPlayerDetachListener = {
+            onVideoPlayerAttachListener = {
                 val windowInsetsController = ViewCompat.getWindowInsetsController(requireActivity().window.decorView)
                 windowInsetsController?.isAppearanceLightStatusBars = true
             }

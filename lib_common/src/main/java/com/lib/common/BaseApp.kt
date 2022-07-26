@@ -17,7 +17,7 @@ abstract class BaseApp : Application() {
             private set
     }
 
-    private val isDebug = true
+    private val isDebug = false
 
     override fun onCreate() {
         super.onCreate()

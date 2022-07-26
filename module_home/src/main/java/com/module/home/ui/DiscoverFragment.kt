@@ -31,7 +31,7 @@ class DiscoverFragment : BaseFragment<FragmentHomeDiscoverBinding, DiscoverViewM
         mBinding.homeDiscoverRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                mBinding.homeDiscoverRecycler.apply {
+                mBinding.discoverRefresh.apply {
                     isEnabled = childCount == 0 || recyclerView.getChildAt(0).top >= 0
                 }
             }

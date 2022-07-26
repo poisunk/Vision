@@ -70,6 +70,9 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
 
     private lateinit var orientationUtils: OrientationUtils
 
+    /**
+     * 初始化视频播放器
+     */
     private fun initVideoPlayer() {
         GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_DEFAULT);
         mBinding.videoPlayer.apply {
@@ -97,6 +100,9 @@ class VideoActivity : BaseActivity<ActivityVideoBinding, VideoViewModel>(){
         }
     }
 
+    /**
+     * 视频详情的标题是否展开
+     */
     private var mMotionStateIsStart = true
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")

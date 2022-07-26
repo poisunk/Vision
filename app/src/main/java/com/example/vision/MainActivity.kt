@@ -29,6 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>() {
 
     private val fragments = mutableListOf<Fragment>()
 
+    // 底部可点击的导航栏
     private val navList = mutableListOf<CheckedTextView>()
 
     override fun init() {

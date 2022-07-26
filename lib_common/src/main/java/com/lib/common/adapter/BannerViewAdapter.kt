@@ -30,13 +30,20 @@ class BannerViewAdapter(
         return ViewHolder(view)
     }
 
+    /**
+     * 第一个和最后一个是互换的，以实现无线轮播的效果
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val index = if (position == 0){
-            data.size - 1
-        }else if(position == itemCount - 1) {
-            0
-        }else {
-            position - 1
+        val index = when (position) {
+            0 -> {
+                data.size - 1
+            }
+            itemCount - 1 -> {
+                0
+            }
+            else -> {
+                position - 1
+            }
         }
         Glide.with(context).load(data[index]).into(holder.image)
     }

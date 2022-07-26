@@ -22,6 +22,7 @@ class VideoRecyclerAdapter(
     private val itemList: List<ItemList>
 ): RecyclerView.Adapter<BaseVideoViewHolder>() {
 
+    // videoSmallCard封面的点击事件
     var videoSmallCardClickListener: ((View, Data) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseVideoViewHolder {

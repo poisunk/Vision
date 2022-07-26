@@ -15,7 +15,6 @@ class RefreshLayout @JvmOverloads constructor(
     attrs: AttributeSet
 ): SwipeRefreshLayout(context, attrs) {
 
-    private var isScrolling = false //是否已经开始滑动
     private var startX = 0f
     private var startY = 0f
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
@@ -23,23 +22,17 @@ class RefreshLayout @JvmOverloads constructor(
             MotionEvent.ACTION_DOWN -> {
                 startX = ev.x
                 startY = ev.y
-                parent.requestDisallowInterceptTouchEvent(true)
             }
             MotionEvent.ACTION_MOVE -> {
-                val endX = ev.x
-                val endY = ev.y
-                val disX = abs(endX - startX)
-                val disY = abs(endY - startY)
-                if (disX > disY && !isScrolling) {
-                    parent.requestDisallowInterceptTouchEvent(false)
-                } else {
-                    isScrolling = true
+                val dx = abs(ev.x - startX)
+                val dy = abs(ev.y - startY)
+                // 当竖直滑动时，将不允许父view拦截事件
+                if (dx < dy){
                     parent.requestDisallowInterceptTouchEvent(true)
                 }
             }
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 parent.requestDisallowInterceptTouchEvent(false)
-                isScrolling=false
             }
         }
         return super.dispatchTouchEvent(ev)

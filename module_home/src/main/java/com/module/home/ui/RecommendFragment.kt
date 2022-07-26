@@ -28,7 +28,7 @@ class RecommendFragment: BaseFragment<FragmentHomeRecommendBinding, RecommendVie
         mBinding.homeRecommendRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                mBinding.homeRecommendRecycler.apply {
+                mBinding.recommendRefresh.apply {
                     isEnabled = childCount == 0 || recyclerView.getChildAt(0).top >= 0
                 }
             }

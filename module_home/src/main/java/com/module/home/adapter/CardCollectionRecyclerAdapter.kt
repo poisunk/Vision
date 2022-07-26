@@ -21,6 +21,7 @@ class CardCollectionRecyclerAdapter(
     private val itemList: List<ItemList>
 ): RecyclerView.Adapter<FollowCardHolder>() {
 
+    // 视频封面点击事件
     var onVideoCoverClickListener: ((View, Data) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowCardHolder {

@@ -69,12 +69,6 @@ class BannerView @JvmOverloads constructor(
         val layoutParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT)
         addView(mRecyclerView, layoutParams)
-    }
-
-    fun setAdapter(adapter: BannerViewAdapter) {
-        mRecyclerView.adapter = adapter
-        mBannerSize = adapter.itemCount
-        mRecyclerView.scrollToPosition(1)
         // 当滑动停止时的监听，用来实现无限轮播
         mRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -97,6 +91,15 @@ class BannerView @JvmOverloads constructor(
         })
     }
 
+    /**
+     * 设置适配器
+     */
+    fun setAdapter(adapter: BannerViewAdapter) {
+        mRecyclerView.adapter = adapter
+        mBannerSize = adapter.itemCount
+        mRecyclerView.scrollToPosition(1)
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         // 因为recyclerview中的子item设置的都是match_parent，所以这里直接获取整个banner的width
@@ -110,6 +113,7 @@ class BannerView @JvmOverloads constructor(
                 mVelocityTracker.computeCurrentVelocity(1000)
             }
             MotionEvent.ACTION_UP -> {
+
                 return onTouchEvent(ev)
             }
         }
@@ -124,7 +128,7 @@ class BannerView @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when(event.action){
-            MotionEvent.ACTION_CANCEL and MotionEvent.ACTION_UP -> {
+            MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
                 // 当事件结束时，根据当前位置和速度判断划向哪一个位置
                 val position = (mInterval/2 + getScrolledX())/mInterval
                 val velocityX = mVelocityTracker.xVelocity
@@ -145,6 +149,9 @@ class BannerView @JvmOverloads constructor(
         return super.onTouchEvent(event)
     }
 
+    /**
+     * 得到划过x轴的距离
+     */
     private fun getScrolledX(): Int{
         val position = mLayoutManager.findFirstVisibleItemPosition()
         val firstView = mLayoutManager.findViewByPosition(position)
@@ -155,12 +162,18 @@ class BannerView @JvmOverloads constructor(
         return 0
     }
 
+    /**
+     * 滑到第几个图片上
+     */
     private fun scrollToPosition(position: Int) {
         mCurrentPosition = position
         Log.d("Banner", position.toString())
         mRecyclerView.smoothScrollToPosition(position)
     }
 
+    /**
+     * 设置是否自动播放
+     */
     private fun setBannerPlayState(play: Boolean){
         if(!isPlaying && play){
             mHandler.sendEmptyMessageDelayed(AUTO_PLAY, AUTO_PLAY_SPEED)
@@ -171,11 +184,17 @@ class BannerView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * 显示时
+     */
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         setBannerPlayState(true)
     }
 
+    /**
+     * 消失时
+     */
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         setBannerPlayState(false)

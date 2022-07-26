@@ -25,9 +25,11 @@ class HomePageRecyclerAdapter(
     fragment: Fragment
 ): RecyclerView.Adapter<BaseHomeViewHolder>() {
 
+    // 视频封面的点击事件
     var onVideoCoverClickListener: ((View, Data) -> Unit)
 
-    var onVideoPlayerDetachListener: (() -> Unit)? = null
+    // 当视频显示时的监听
+    var onVideoPlayerAttachListener: (() -> Unit)? = null
 
     init {
         onVideoCoverClickListener = { view, data ->
@@ -116,6 +118,7 @@ class HomePageRecyclerAdapter(
         }
     }
 
+    // 是否有其他视频正在播放
     private var isOtherVideoPlaying: Boolean = false
 
     override fun onBindViewHolder(holder: BaseHomeViewHolder, position: Int) {
@@ -137,9 +140,10 @@ class HomePageRecyclerAdapter(
                 }
             }
             is AutoPlayCardHolder -> {
+                // 显示时开始播放
                 holder.videoPlayer.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener{
                     override fun onViewAttachedToWindow(v: View?) {
-                        onVideoPlayerDetachListener?.invoke()
+                        onVideoPlayerAttachListener?.invoke()
                         if(!isOtherVideoPlaying) {
                             holder.videoPlayer.startPlayLogic()
                             isOtherVideoPlaying = true

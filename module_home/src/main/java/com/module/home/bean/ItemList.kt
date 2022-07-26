@@ -1,5 +1,7 @@
 package com.module.home.bean
 
+import java.io.Serializable
+
 /**
  *创建者： poisunk
  *邮箱：1714480752@qq.com
@@ -11,7 +13,7 @@ data class ItemList(
     val tag: Any,
     val id: Int,
     val adIndex: Int
-)
+): Serializable
 
 data class Data(
     val id: Long,
@@ -34,13 +36,13 @@ data class Data(
     val playUrl: String,
     val date: Long,
     val consumption: Consumption
-)
+): Serializable
 
 data class Label(
     val text: String,
     val card: String,
     val detail: Any
-)
+): Serializable
 
 data class Header(
     val id: Int,
@@ -52,34 +54,34 @@ data class Header(
     val actionUrl: String,
     val rightText: String,
     val icon: String
-)
+): Serializable
 
 data class Content(
     val type: String,
     val data: Data,
-)
+): Serializable
 
 data class Cover(
     val feed: String
-)
+): Serializable
 
 data class Owner(
     val avatar: String,
     val nickname: String
-)
+): Serializable
 
 data class Tag(
     val name: String
-)
+): Serializable
 
 data class Author(
     val name: String,
     val icon: String,
     val description: String
-)
+): Serializable
 
 data class Consumption(
     val collectionCount: Int,
     val shareCount: Int,
     val replyCount: Int
-)
+): Serializable
